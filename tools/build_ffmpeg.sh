@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
-# Ubuntu: gcc-mingw-w64-x86-64, make, pkg-config, curl, xz-utils.
+# Ubuntu: gcc-mingw-w64-x86-64, make, pkg-config, curl, xz-utils, nasm.
 # Minimal LGPL build: the existing raw RGBA -> NVENC -> RTSP path only.
 output="${1:?output directory required}"
 mkdir -p "$output"
@@ -17,8 +17,8 @@ export PKG_CONFIG_PATH="$work/prefix/lib/pkgconfig"
 cd FFmpeg-n9.0.2
 ./configure --target-os=mingw32 --arch=x86_64 --cross-prefix=x86_64-w64-mingw32- \
   --cc=x86_64-w64-mingw32-gcc-win32 --pkg-config=pkg-config --extra-ldflags=-static \
-  --disable-autodetect --disable-everything --disable-x86asm --disable-debug --disable-doc \
-  --disable-programs --enable-ffmpeg --disable-shared --enable-static --enable-small \
+  --disable-autodetect --disable-everything --disable-debug --disable-doc --disable-gpl --disable-nonfree \
+  --disable-programs --enable-ffmpeg --disable-shared --enable-static \
   --enable-ffnvcodec --enable-nvenc --enable-network --enable-avfilter --enable-swscale \
   --enable-encoder=h264_nvenc --enable-decoder=rawvideo --enable-demuxer=rawvideo \
   --enable-muxer=rtsp,rtp --enable-protocol=file,pipe,udp,tcp,rtp \

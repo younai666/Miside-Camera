@@ -1,0 +1,18 @@
+name: Build bundled media runtime
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  ffmpeg:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update && sudo apt-get install -y gcc-mingw-w64-x86-64 make pkg-config xz-utils
+      - run: bash tools/build_ffmpeg.sh artifacts/ffmpeg
+      - run: cp tools/build_ffmpeg.sh artifacts/ffmpeg/sources/
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ffmpeg-win64-n9.0.2-lgpl
+          path: artifacts/ffmpeg
+          if-no-files-found: error

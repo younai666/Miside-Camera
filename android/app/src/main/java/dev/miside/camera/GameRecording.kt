@@ -28,7 +28,8 @@ data class RecordingState(val phase: RecordingPhase = RecordingPhase.Idle, val s
     val saving get() = phase == RecordingPhase.Saving
 }
 
-/** Copies compressed game samples before decode. Neither Surface pixels nor Compose UI enter this path. */
+/** Buffers game samples privately, then exports only the portrait viewfinder crop to the gallery.
+ * The stable live player/Surface is never captured or replaced. */
 @androidx.annotation.OptIn(androidx.media3.common.util.UnstableApi::class)
 class GameRecording {
     private val mutableState = MutableStateFlow(RecordingState())
@@ -90,27 +91,13 @@ class GameRecording {
         fun write() {
             val resolver = context.contentResolver
             var uri: Uri? = null
-            var descriptor: android.os.ParcelFileDescriptor? = null
+            val source = File(context.cacheDir, "game-source-${System.nanoTime()}.mp4")
+            val portrait = File(context.cacheDir, "game-portrait-${System.nanoTime()}.mp4")
             var muxer: MediaMuxer? = null
             var started = false
             var samples = 0
             try {
-                val name = "Miside-${System.currentTimeMillis()}.mp4"
-                val values = ContentValues().apply {
-                    put(MediaStore.Video.Media.DISPLAY_NAME, name)
-                    put(MediaStore.Video.Media.MIME_TYPE, "video/mp4")
-                    if (Build.VERSION.SDK_INT >= 29) {
-                        put(MediaStore.Video.Media.RELATIVE_PATH, "Movies/Miside Camera")
-                        put(MediaStore.Video.Media.IS_PENDING, 1)
-                    } else {
-                        @Suppress("DEPRECATION") val directory = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES), "Miside Camera")
-                        if (!directory.isDirectory && !directory.mkdirs()) error("Cannot create Movies directory")
-                        @Suppress("DEPRECATION") put(MediaStore.Video.Media.DATA, File(directory, name).absolutePath)
-                    }
-                }
-                uri = checkNotNull(resolver.insert(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, values))
-                descriptor = checkNotNull(resolver.openFileDescriptor(uri, "rw"))
-                muxer = MediaMuxer(descriptor.fileDescriptor, MediaMuxer.OutputFormat.MUXER_OUTPUT_MPEG_4)
+                muxer = MediaMuxer(source.absolutePath, MediaMuxer.OutputFormat.MUXER_OUTPUT_MPEG_4)
                 val trackFormat = MediaFormat.createVideoFormat(MimeTypes.VIDEO_H264, input.width, input.height)
                 input.initializationData.forEachIndexed { index, data -> trackFormat.setByteBuffer("csd-$index", ByteBuffer.wrap(data)) }
                 // Preserve the bitstream's SPS/VUI. RTSP Format.colorInfo may default to BT.709
@@ -149,17 +136,39 @@ class GameRecording {
                 accepting = false
                 try { if (started) muxer?.stop() } catch (error: Exception) { failure = R.string.recording_save_failed; Log.w("GameRecording", "Cannot finalize MP4", error) }
                 try { muxer?.release() } catch (error: Exception) { failure = R.string.recording_save_failed; Log.w("GameRecording", "Cannot release MP4", error) }
-                try { descriptor?.close() } catch (error: Exception) { failure = R.string.recording_save_failed; Log.w("GameRecording", "Cannot close MP4", error) }
-                uri?.let { output ->
+                if (failure == 0 && samples > 0) {
                     try {
-                        if (failure != 0 || samples == 0) resolver.delete(output, null, null)
-                        else if (Build.VERSION.SDK_INT >= 29) check(resolver.update(output, ContentValues().apply { put(MediaStore.Video.Media.IS_PENDING, 0) }, null, null) == 1)
+                        synchronized(this@GameRecording) {
+                            mutableState.value = mutableState.value.copy(phase = RecordingPhase.Saving)
+                        }
+                        PortraitRecordingExport.export(context, source, portrait)
+                        val name = "Miside-${System.currentTimeMillis()}.mp4"
+                        val values = ContentValues().apply {
+                            put(MediaStore.Video.Media.DISPLAY_NAME, name)
+                            put(MediaStore.Video.Media.MIME_TYPE, "video/mp4")
+                            if (Build.VERSION.SDK_INT >= 29) {
+                                put(MediaStore.Video.Media.RELATIVE_PATH, "Movies/Miside Camera")
+                                put(MediaStore.Video.Media.IS_PENDING, 1)
+                            } else {
+                                @Suppress("DEPRECATION") val directory = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES), "Miside Camera")
+                                if (!directory.isDirectory && !directory.mkdirs()) error("Cannot create Movies directory")
+                                @Suppress("DEPRECATION") put(MediaStore.Video.Media.DATA, File(directory, name).absolutePath)
+                            }
+                        }
+                        uri = checkNotNull(resolver.insert(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, values))
+                        checkNotNull(resolver.openOutputStream(uri, "w")).use { output ->
+                            portrait.inputStream().use { it.copyTo(output) }
+                        }
+                        if (Build.VERSION.SDK_INT >= 29) check(resolver.update(uri, ContentValues().apply { put(MediaStore.Video.Media.IS_PENDING, 0) }, null, null) == 1)
                     } catch (error: Exception) {
                         failure = R.string.recording_save_failed
-                        Log.w("GameRecording", "Cannot publish recording", error)
-                        try { resolver.delete(output, null, null) } catch (cleanup: Exception) { Log.w("GameRecording", "Cannot remove incomplete recording", cleanup) }
+                        Log.w("GameRecording", "Cannot export/publish portrait recording", error)
+                        uri?.let { output ->
+                            try { resolver.delete(output, null, null) } catch (cleanup: Exception) { Log.w("GameRecording", "Cannot remove incomplete recording", cleanup) }
+                        }
                     }
                 }
+                source.delete(); portrait.delete()
                 queue.clear()
                 synchronized(this@GameRecording) {
                     if (session === this) {

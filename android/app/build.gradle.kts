@@ -27,8 +27,8 @@ android {
         applicationId = "dev.miside.camera"
         minSdk = 26
         targetSdk = 36
-        versionCode = 4
-        versionName = "0.2.0"
+        versionCode = 5
+        versionName = "0.2.1"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -74,6 +74,7 @@ dependencies {
     implementation("androidx.media3:media3-exoplayer:1.8.0")
     implementation("androidx.media3:media3-exoplayer-rtsp:1.8.0")
     implementation("androidx.media3:media3-ui:1.8.0")
+    implementation("androidx.media3:media3-transformer:1.8.0")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
     androidTestImplementation(platform("androidx.compose:compose-bom:2025.10.01"))

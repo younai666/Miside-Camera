@@ -18,8 +18,8 @@ public partial class MainWindow : Window
     {
         this.model = model; DataContext = model; InitializeComponent();
         Loaded += async (_, _) => {
-            if (model.Settings.AutoStart && File.Exists(model.Settings.GamePath)) await model.RunAsync(model.Manager.StartAsync);
-            else if (!File.Exists(model.Settings.GamePath)) model.Page = "settings";
+            if (!File.Exists(model.Settings.GamePath) || !HostLocator.IsSupported(model.Settings.GamePath)) model.Page = "settings";
+            else if (model.Settings.AutoStart) await model.RunAsync(model.Manager.StartAsync);
         };
         Closing += ClosingAsync;
         AddHandler(Button.PreviewMouseLeftButtonDownEvent, new MouseButtonEventHandler(PressFeedback), true);
@@ -58,8 +58,6 @@ public partial class MainWindow : Window
         if (dialog.ShowDialog(this) != true) return;
         switch ((sender as Button)?.Tag) {
             case "GamePath": model.Settings.GamePath = dialog.FileName; break;
-            case "FfmpegPath": model.Settings.FfmpegPath = dialog.FileName; break;
-            case "MediaMtxPath": model.Settings.MediaMtxPath = dialog.FileName; break;
         }
     }
     private async void ClosingAsync(object? sender, CancelEventArgs e)

@@ -16,13 +16,13 @@ JAR SHA-256：`81a82aaea5abcc8ff68b3dfcb58b3c3c429378efd98e7433460610fecd7ae45f`
 | Kotlin plugin / stdlib | 2.2.21，Apache-2.0；[JetBrains](https://github.com/JetBrains/kotlin/blob/master/license/LICENSE.txt) | Kotlin compiler and APK standard library |
 | AndroidX Activity / AppCompat / Compose / Lifecycle | Activity 1.11.0、AppCompat 1.7.1、Compose BOM 2025.10.01、Lifecycle 2.9.4，Apache-2.0；[AndroidX](https://android.googlesource.com/platform/frameworks/support/) | Compose UI、应用语言、窗口/生命周期与设备测试；不复制第三方 UI 资产 |
 | kotlinx.coroutines | 解析到 1.8.1，Apache-2.0；[Kotlin 协程](https://github.com/Kotlin/kotlinx.coroutines) | 协程与网络线程调度，标准依赖解析 |
-| AndroidX Media3 | 1.8.0，Apache-2.0；[上游许可](https://github.com/androidx/media/blob/1.8.0/LICENSE) | ExoPlayer、RTSP、PlayerView 与平台 MediaCodec；不包含 INK/Moonlight 实现 |
+| AndroidX Media3 | 1.8.0，Apache-2.0；[上游许可](https://github.com/androidx/media/blob/1.8.0/LICENSE) | ExoPlayer、RTSP、PlayerView、Transformer 与平台 MediaCodec；不包含 INK/Moonlight 实现 |
 | Google ARCore SDK | 1.57.0；[SDK LICENSE](https://github.com/google-ar/arcore-android-sdk/blob/1.57.0/LICENSE) 区分 Apache-2.0 源码与受 [ARCore Additional Terms](https://developers.google.com/ar/develop/terms) 约束的二进制 | Maven AAR 为二进制，不能统一标成 Apache-2.0；使用设备的 Google Play Services for AR。Mode 面板提供所需的 Google 服务说明和隐私政策链接；不使用 Cloud Anchors/Geospatial |
 | BepInEx Unity IL2CPP / Core / Unity.Common | 6.0.0-be.788，实际 NuGet metadata 标记 LGPL-2.1-only，Copyright © 2022 BepInEx Team；[上游](https://github.com/BepInEx/BepInEx) | compile-only、PrivateAssets=all；未分发 loader/runtime |
 | Il2CppInterop | 1.5.3，NuGet 标记 LGPL-3.0-only；[上游](https://github.com/BepInEx/Il2CppInterop) | BepInEx 传递构建依赖，未入库/打包 |
 | .NET / Windows Desktop Runtime | Desktop 使用 .NET 10 / WPF；MIT，Copyright (c) .NET Foundation and Contributors | 自包含 Desktop 构建包含对应运行时；`tools/build_desktop.ps1` 从实际发布依赖对应的 NuGet runtime pack 原样复制 LICENSE 及可用的 THIRD-PARTY-NOTICES 到包内 `licenses/`，不包含宿主运行时 |
 
-PC transitive versions are locked in `pc/Miside.Camera.Plugin/packages.lock.json`. The Release APK contains its Android runtime dependencies; the Windows ZIP contains the self-contained .NET/WPF runtime and original adapter DLLs. The build copies notices from the exact .NET runtime packs. Game interop, the game/loader, FFmpeg and MediaMTX are excluded. `PrivateAssets` alone does not determine redistribution obligations. Any future bundle needs a fresh inventory for the actual files distributed.
+PC transitive versions are locked in `pc/Miside.Camera.Plugin/packages.lock.json`. The Release APK contains its Android runtime dependencies; the Windows ZIP contains the self-contained .NET/WPF runtime and original adapter DLLs. The build copies notices from the exact .NET runtime packs. Game interop, the game/loader and NVIDIA drivers are excluded; media tools and their notices/sources are packaged separately under tools/. `PrivateAssets` alone does not determine redistribution obligations. Any future bundle needs a fresh inventory for the actual files distributed.
 
 第二阶段 NeuroMita Adapter 通过 `HostDirectory` 引用本地宿主生成的 Unity/游戏 interop，只调用宿主 API；这些引用为 `Private=false`，不入库、不复制到发行包。实验副本中的 loader、生成绑定、私有验证探针、分析工具及含内部游戏内容的验收截图均在正式仓库外。本项目未复制 NeuroMita、NeuroMita-VR 或 INK 的业务实现和资产。
 
@@ -32,9 +32,16 @@ Android 对 Media3 1.8.0 的 `RtpPacketReorderingQueue.calculateSequenceNumberSh
 
 Desktop 与 Android 图标由项目维护者提供的双图 PNG 沿中线裁开生成，仅做等比尺寸适配并保留透明通道，未从 INK 或游戏中提取。原图权利归对应权利人；源码 MIT 许可不自动授予品牌图稿的独立使用权。源图拆分、平台尺寸与再生成步骤见 [品牌图标](assets/branding/README.md)。
 
-## 单独安装的媒体工具
+## Bundled media tools (v0.2.1)
 
-MediaMTX 1.21.2（MIT，Copyright (c) 2019 aler9；[许可](https://github.com/bluenviron/mediamtx/blob/v1.21.2/LICENSE)）与 FFmpeg 9.0.2 essentials Windows 构建（此构建启用 GPL，GPL-3.0-or-later；[构建来源](https://www.gyan.dev/ffmpeg/builds/)、[FFmpeg legal](https://ffmpeg.org/legal.html)）仅作为本地独立进程使用。插件通过标准输入/RTSP 与其通信，未链接或复制工具代码；仓库只包含原创调用代码与 MediaMTX 配置，不包含二进制。NVENC 还依赖设备驱动和适用的 NVIDIA 条款。当前仅验证本机 NVIDIA 路径，不暗示其他 GPU 可用。若将来捆绑工具发行，需按实际构建重新履行许可、版权、源码提供及相关分发要求；本项目 MIT 不覆盖这些工具。
+The Windows ZIP now includes two independent processes under `tools/`; their licenses do not become MIT merely because the application uses MIT.
+
+- **FFmpeg n9.0.2**, Copyright (c) 2000–2026 the FFmpeg developers, **LGPL-2.1-or-later** in this build. It is built from the [official n9.0.2 source](https://github.com/FFmpeg/FFmpeg/tree/n9.0.2) with `tools/build_ffmpeg.sh`. GPL/nonfree components and external codec libraries are disabled. The enabled path is raw RGBA input, format/color conversion, H.264 NVENC and RTSP/RTP. SIMD optimization remains enabled. The exact unmodified FFmpeg source archive, configuration, LGPL license and rebuild script are included under `tools/ffmpeg/sources/` and `licenses/`. Earlier Gyan GPL builds were development references and are not bundled.
+- **nv-codec-headers n13.0.19.0**, MIT, NVIDIA copyright/permission notices retained in the included [upstream header source archive](https://github.com/FFmpeg/nv-codec-headers/tree/n13.0.19.0). These are compilation headers, not NVIDIA driver binaries. NVENC requires compatible NVIDIA hardware and its separately installed driver.
+- **MinGW-w64 runtime**: original toolchain copyright/license inventory is included in `tools/ffmpeg/licenses/mingw-w64-copyright.txt`. The executable uses the Windows platform libraries, not an application-private driver or copied game library.
+- **MediaMTX v1.21.2**, MIT, Copyright (c) 2019 aler9; the [upstream license](https://github.com/bluenviron/mediamtx/blob/v1.21.2/LICENSE) is retained beside the unmodified executable. Go's BSD license and dependency LICENSE/NOTICE files collected from the pinned v1.21.2 module/vendor inventory are included under `tools/mediamtx/licenses/`, with `go.mod` and `go.sum` recording versions. The development workflow `media-notices.yml` reproduces that inventory; it can include notices for vendored modules not linked in every platform build.
+
+No BepInEx loader/runtime, game binaries, game interop, internal assets or NVIDIA driver binaries are included. Third-party source archives contain only the named public upstream software. Desktop communicates with FFmpeg/MediaMTX through stdin/RTSP and does not link their implementation into the app.
 
 ## 仅研究，未复用
 

@@ -7,7 +7,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <AssemblyName>Miside Camera Desktop</AssemblyName>
     <RootNamespace>Miside.Camera.Desktop</RootNamespace>
-    <Version>0.2.0</Version>
+    <Version>0.2.1</Version>
     <Product>Miside Camera Desktop</Product>
     <Description>Windows workspace manager for Miside Camera</Description>
     <Copyright>Copyright (c) 2026 Miside Camera contributors</Copyright>

@@ -63,6 +63,31 @@ try {
 } finally { File.Delete(configuration); }
 Console.WriteLine("PASS: effective host access code and configuration updates");
 
+string installs = Path.Combine(Path.GetTempPath(), "Miside.Camera.Installs." + Guid.NewGuid().ToString("N"));
+try {
+    string miside = Path.Combine(installs, "MiSide");
+    string host = Path.Combine(installs, "NeuroMita", "Build", "NeuroMita-Unity");
+    Directory.CreateDirectory(miside); Directory.CreateDirectory(Path.Combine(host, "BepInEx", "interop"));
+    File.WriteAllText(Path.Combine(miside, "MiSideFull.exe"), "disposable detection fixture, never executable");
+    File.WriteAllText(Path.Combine(host, "NeuroMita.exe"), "disposable detection fixture, never executable");
+    File.WriteAllText(Path.Combine(host, "BepInEx", "interop", "Assembly-CSharp.dll"), "fixture");
+    Require(HostLocator.Find(new[] { installs }) == Path.Combine(host, "NeuroMita.exe"), "Prefer the supported prepared host over standalone MiSide");
+    Require(HostLocator.Find(new[] { miside }) == Path.Combine(miside, "MiSideFull.exe"), "Detect standalone MiSide without claiming adapter support");
+    Require(HostLocator.Find(new[] { Path.Combine(installs, "absent") }) is null, "Missing installs must permit manual selection");
+    string file = Path.Combine(installs, "settings.json");
+    var migrated = JsonSerializer.Deserialize<DesktopSettings>("{\"FfmpegPath\":\"Z:/old-dev/ffmpeg.exe\",\"MediaMtxPath\":\"Z:/old-dev/mediamtx.exe\"}")!;
+    migrated.GamePath = Path.Combine(host, "NeuroMita.exe"); migrated.Save(file);
+    var loaded = DesktopSettings.Load(file); loaded.DetectHost();
+    Require(loaded.GamePath == migrated.GamePath, "A valid saved manual selection must survive auto-detection");
+    Require(!Path.IsPathFullyQualified(loaded.FfmpegPath) && !File.ReadAllText(file).Contains("old-dev"), "Legacy machine-specific tool paths must not survive migration");
+    Require(loaded.FfmpegExecutable.StartsWith(AppContext.BaseDirectory, StringComparison.OrdinalIgnoreCase), "Bundled tools must resolve against the application, never the working directory");
+    string encoder = Path.Combine(installs, "release", "tools", "ffmpeg", "ffmpeg.exe");
+    string relative = WorkspaceManager.RelativeEncoderPath(loaded.GamePath, encoder);
+    Require(!relative.Contains('\\') && !Path.IsPathFullyQualified(relative), "BepInEx relative values must avoid backslash string escapes");
+    Require(Path.GetFullPath(relative, Path.GetDirectoryName(loaded.GamePath)!) == encoder, "Relative host configuration must resolve to this bundle's encoder");
+} finally { Directory.Delete(installs, true); }
+Console.WriteLine("PASS: host discovery, manual persistence and portable tool path migration");
+
 using (var receiver = new PoseReceiver(0, () => new CameraStatus("active"), messages.Enqueue, accessToken: "123456")) {
     string Packet(string code, long seq) => JsonSerializer.Serialize(new {
         version = 2, sequence = seq, timestampNs = seq,

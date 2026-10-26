@@ -41,7 +41,7 @@ public sealed class WorkspaceManager : IAsyncDisposable
             settings.Validate();
             error = null; phase = "Starting"; Emit();
             Directory.CreateDirectory(DesktopSettings.DataDirectory);
-            game = Process.GetProcessesByName("NeuroMita").FirstOrDefault(p => {
+            game = Process.GetProcessesByName(Path.GetFileNameWithoutExtension(settings.GamePath)).FirstOrDefault(p => {
                 try { return string.Equals(p.MainModule?.FileName, Path.GetFullPath(settings.GamePath), StringComparison.OrdinalIgnoreCase); }
                 catch (System.ComponentModel.Win32Exception) { return false; }
             });
@@ -54,6 +54,9 @@ public sealed class WorkspaceManager : IAsyncDisposable
                     .Any(endpoint => endpoint.Port == 39570 && endpoint.Address.Equals(expected))) throw E("RestartForNetwork");
                 if (settings.NetworkEnabled && ReadIni(Path.Combine(Path.GetDirectoryName(settings.GamePath)!, "BepInEx", "config", "dev.miside.camera.cfg"),
                     "Control", "AccessToken") != settings.AccessCode) throw E("RestartForNetwork");
+                string configuredEncoder = ReadIni(Path.Combine(Path.GetDirectoryName(settings.GamePath)!, "BepInEx", "config", "dev.miside.camera.streaming.cfg"), "Video", "FFmpegPath") ?? "";
+                if (!configuredEncoder.Equals(RelativeEncoderPath(settings.GamePath, settings.FfmpegExecutable), StringComparison.OrdinalIgnoreCase))
+                    throw E("RestartForNetwork");
             } else {
                 CheckTcpPort(39570);
                 DeployAdapters(); ConfigureHost();
@@ -189,7 +192,7 @@ public sealed class WorkspaceManager : IAsyncDisposable
         relay = null;
         CheckTcpPort(8554);
         CheckTcpPort(9997);
-        var start = new ProcessStartInfo(settings.MediaMtxPath) { UseShellExecute = false, CreateNoWindow = true,
+        var start = new ProcessStartInfo(settings.MediaMtxExecutable) { UseShellExecute = false, CreateNoWindow = true,
             RedirectStandardOutput = true, RedirectStandardError = true, WorkingDirectory = DesktopSettings.DataDirectory };
         start.ArgumentList.Add(RelayConfig);
         relay = Process.Start(start) ?? throw E("RelayStartFailed");
@@ -276,9 +279,13 @@ public sealed class WorkspaceManager : IAsyncDisposable
         SetIni(Path.Combine(config, "dev.miside.camera.cfg"), "Control", "AccessToken", settings.NetworkEnabled ? settings.AccessCode : "");
         SetIni(Path.Combine(config, "dev.miside.camera.cfg"), "Control", "Port", "39570");
         SetIni(Path.Combine(config, "dev.miside.camera.streaming.cfg"), "Video", "Enabled", "true");
-        SetIni(Path.Combine(config, "dev.miside.camera.streaming.cfg"), "Video", "FFmpegPath", settings.FfmpegPath);
+        SetIni(Path.Combine(config, "dev.miside.camera.streaming.cfg"), "Video", "FFmpegPath", RelativeEncoderPath(settings.GamePath, settings.FfmpegExecutable));
         SetIni(Path.Combine(config, "BepInEx.cfg"), "Logging.Console", "Enabled", "false");
     }
+
+    // BepInEx unescapes relative string values: backslashes such as \t or \r corrupt a path.
+    internal static string RelativeEncoderPath(string gamePath, string encoder)
+        => Path.GetRelativePath(Path.GetDirectoryName(gamePath)!, encoder).Replace('\\', '/');
 
     internal static void SetIni(string path, string section, string key, string value)
     {

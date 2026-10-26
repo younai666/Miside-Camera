@@ -445,10 +445,10 @@
     <value>游戏尚未准备对应版本的 BepInEx IL2CPP 绑定，请先完成宿主准备。</value>
   </data>
   <data name="SelectFfmpeg" xml:space="preserve">
-    <value>请选择单独安装的 FFmpeg。</value>
+    <value>缺少随包 FFmpeg，请重新完整解压 Desktop 发布包。</value>
   </data>
   <data name="SelectMediaMtx" xml:space="preserve">
-    <value>请选择单独安装的 MediaMTX。</value>
+    <value>缺少随包 MediaMTX，请重新完整解压 Desktop 发布包。</value>
   </data>
   <data name="InvalidAccessCode" xml:space="preserve">
     <value>连接码必须为六位数字。</value>
@@ -499,6 +499,7 @@
     <value>未检测到 USB 网卡，请在手机系统中开启 USB 网络共享。</value>
   </data>
   <data name="RestartForNetwork" xml:space="preserve">
-    <value>请先关闭游戏，再重新启动工作区，以应用连接方式或连接码。</value>
+    <value>连接模式、连接码或随包媒体工具位置变更后，请关闭游戏并重启工作区。</value>
   </data>
+  <data name="UnsupportedHost" xml:space="preserve"><value>当前版本尚无此游戏的 Camera Adapter，请选择 NeuroMita.exe。</value></data>
 </root>

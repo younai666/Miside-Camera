@@ -445,10 +445,10 @@
     <value>Prepare the matching BepInEx IL2CPP bindings for this game build first.</value>
   </data>
   <data name="SelectFfmpeg" xml:space="preserve">
-    <value>Select a separately installed FFmpeg.</value>
+    <value>Bundled FFmpeg is missing. Extract the complete Desktop ZIP again.</value>
   </data>
   <data name="SelectMediaMtx" xml:space="preserve">
-    <value>Select a separately installed MediaMTX.</value>
+    <value>Bundled MediaMTX is missing. Extract the complete Desktop ZIP again.</value>
   </data>
   <data name="InvalidAccessCode" xml:space="preserve">
     <value>The access code must contain six digits.</value>
@@ -499,6 +499,7 @@
     <value>No USB adapter detected. Enable USB tethering in your phone settings.</value>
   </data>
   <data name="RestartForNetwork" xml:space="preserve">
-    <value>Close the game and restart the workspace to apply the connection mode or access code.</value>
+    <value>Close the game and restart the workspace after changing connection mode, code or bundled media location.</value>
   </data>
+  <data name="UnsupportedHost" xml:space="preserve"><value>This game has no compatible Camera Adapter in this release. Select NeuroMita.exe.</value></data>
 </root>

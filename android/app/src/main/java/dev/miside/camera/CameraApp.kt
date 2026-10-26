@@ -192,7 +192,10 @@ private fun ViewfinderScreen(
                     CameraPopover(selected == Sheet.Connection, above = false, tag = "connection_popover", onDismiss, content = connectionContent)
                 }
             }
-            Viewfinder(Modifier.weight(1f).fillMaxWidth(), grid, videoContent, videoPlaying, recording)
+            BoxWithConstraints(Modifier.weight(1f).fillMaxWidth(), contentAlignment = Alignment.Center) {
+                val frameWidth = minOf(maxWidth, maxHeight * PortraitRecordingExport.ASPECT)
+                Viewfinder(Modifier.width(frameWidth).aspectRatio(PortraitRecordingExport.ASPECT), grid, videoContent, videoPlaying, recording)
+            }
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.Bottom) {
                 ToolbarControl(stringResource(if (recording.active) R.string.stop_recording else R.string.record_video),
                     if (recording.active) Glyph.Stop else Glyph.Record, onRecord, Modifier.weight(1f), primary = true,

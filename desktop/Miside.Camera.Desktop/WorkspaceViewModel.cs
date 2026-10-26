@@ -17,6 +17,7 @@ public sealed class ActionCommand(Action action, Func<bool>? canExecute = null) 
 public sealed class WorkspaceViewModel : Observable
 {
     public DesktopSettings Settings { get; }
+    public string AppVersion => "v" + typeof(WorkspaceViewModel).Assembly.GetName().Version!.ToString(3);
     public WorkspaceManager Manager { get; }
     public ObservableCollection<LogLine> Logs { get; } = new();
     private readonly string settingsFile, logFile;

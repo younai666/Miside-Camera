@@ -75,8 +75,11 @@ class RecordingViewfinderTest {
                 assertEquals("The current game stream is video only", 1, extractor.trackCount)
                 val format = extractor.getTrackFormat(0)
                 assertEquals("video/avc", format.getString(MediaFormat.KEY_MIME))
-                assertEquals(1920, format.getInteger(MediaFormat.KEY_WIDTH))
-                assertEquals(1080, format.getInteger(MediaFormat.KEY_HEIGHT))
+                val rotation = if (format.containsKey(MediaFormat.KEY_ROTATION)) format.getInteger(MediaFormat.KEY_ROTATION) else 0
+                val width = format.getInteger(MediaFormat.KEY_WIDTH)
+                val height = format.getInteger(MediaFormat.KEY_HEIGHT)
+                assertEquals(1080, if (rotation % 180 == 0) width else height)
+                assertEquals(1920, if (rotation % 180 == 0) height else width)
                 extractor.selectTrack(0)
                 assertTrue("The MP4 must start at a keyframe", extractor.sampleFlags and MediaExtractor.SAMPLE_FLAG_SYNC != 0)
                 assertTrue(format.getLong(MediaFormat.KEY_DURATION) > 0)
@@ -89,7 +92,7 @@ class RecordingViewfinderTest {
             try {
                 retriever.setDataSource(context, uri)
                 val bitmap = checkNotNull(retriever.getFrameAtTime(0, MediaMetadataRetriever.OPTION_CLOSEST_SYNC))
-                assertEquals(1920, bitmap.width); assertEquals(1080, bitmap.height)
+                assertEquals(1080, bitmap.width); assertEquals(1920, bitmap.height)
                 bitmap.recycle()
             } finally { retriever.release() }
         }

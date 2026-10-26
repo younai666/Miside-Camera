@@ -17,6 +17,8 @@ public partial class App : Application
         DesktopSettings settings;
         try { settings = DesktopSettings.Load(file); }
         catch (System.Text.Json.JsonException) { settings = new(); }
+        settings.DetectHost();
+        settings.Save(file);
         Localization.Current.Use(settings.Language);
         var model = new WorkspaceViewModel(settings, file);
         var window = new MainWindow(model); MainWindow = window; window.Show();

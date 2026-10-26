@@ -55,7 +55,7 @@
             <StackPanel DockPanel.Dock="Bottom">
               <RadioButton Content="{local:Loc Settings}" Tag="" Style="{StaticResource Navigation}" GroupName="Navigation" IsChecked="{Binding IsSettings, Mode=OneWay}" Command="{Binding SettingsCommand}" AutomationProperties.AutomationId="SettingsPage" />
               <RadioButton Content="{local:Loc Logs}" Tag="" Style="{StaticResource Navigation}" GroupName="Navigation" IsChecked="{Binding IsLogs, Mode=OneWay}" Command="{Binding LogsCommand}" AutomationProperties.AutomationId="LogsPage" />
-              <TextBlock Text="v0.2.0" Foreground="{StaticResource Faint}" FontSize="12" Margin="22,18,0,6" />
+              <TextBlock Text="{Binding AppVersion}" Foreground="{StaticResource Faint}" FontSize="12" Margin="22,18,0,6" />
             </StackPanel>
             <StackPanel>
               <RadioButton Content="{local:Loc Workspace}" Tag="" Style="{StaticResource Navigation}" GroupName="Navigation" IsChecked="{Binding IsWorkspace, Mode=OneWay}" Command="{Binding WorkspaceCommand}" AutomationProperties.AutomationId="WorkspacePage" />
@@ -361,8 +361,7 @@
                         <ColumnDefinition Width="Auto" />
                       </Grid.ColumnDefinitions>
                       <TextBlock Text="{local:Loc FfmpegLabel}" Style="{StaticResource Label}" />
-                      <TextBox Grid.Column="1" Text="{Binding Settings.FfmpegPath, UpdateSourceTrigger=PropertyChanged}" AutomationProperties.Name="{local:Loc FfmpegPath}" AutomationProperties.AutomationId="FfmpegPath" />
-                      <Button Grid.Column="2" Content="{local:Loc Browse}" Tag="FfmpegPath" Click="Browse_Click" Margin="6,0,0,0" />
+                      <TextBox Grid.Column="1" Text="{Binding Settings.FfmpegPath, Mode=OneWay}" IsReadOnly="True" AutomationProperties.Name="{local:Loc FfmpegPath}" AutomationProperties.AutomationId="FfmpegPath" />
                     </Grid>
                     <Grid Margin="0,0,0,14">
                       <Grid.ColumnDefinitions>
@@ -371,8 +370,7 @@
                         <ColumnDefinition Width="Auto" />
                       </Grid.ColumnDefinitions>
                       <TextBlock Text="{local:Loc MediaMtxLabel}" Style="{StaticResource Label}" />
-                      <TextBox Grid.Column="1" Text="{Binding Settings.MediaMtxPath, UpdateSourceTrigger=PropertyChanged}" AutomationProperties.Name="{local:Loc MediaMtxPath}" AutomationProperties.AutomationId="MediaMtxPath" />
-                      <Button Grid.Column="2" Content="{local:Loc Browse}" Tag="MediaMtxPath" Click="Browse_Click" Margin="6,0,0,0" />
+                      <TextBox Grid.Column="1" Text="{Binding Settings.MediaMtxPath, Mode=OneWay}" IsReadOnly="True" AutomationProperties.Name="{local:Loc MediaMtxPath}" AutomationProperties.AutomationId="MediaMtxPath" />
                     </Grid>
                     <Border Height="1" Background="{StaticResource Outline}" Margin="0,8,0,18" />
                     <TextBlock Text="{local:Loc Connection}" Style="{StaticResource Section}" Margin="0,0,0,10" />

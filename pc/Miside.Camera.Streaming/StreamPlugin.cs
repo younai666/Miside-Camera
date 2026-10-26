@@ -11,14 +11,15 @@ using Miside.Camera.Local;
 
 namespace Miside.Camera.Streaming;
 
-[BepInPlugin("dev.miside.camera.streaming", "Miside Camera Video", "0.2.0")]
+[BepInPlugin("dev.miside.camera.streaming", "Miside Camera Video", "0.2.1")]
 public sealed class StreamPlugin : BasePlugin
 {
     private GameStream? stream;
     public override void Load()
     {
         bool enabled = Config.Bind("Video", "Enabled", false, "Opt in to game capture. Desktop can also enable capture.").Value;
-        string executable = Config.Bind("Video", "FFmpegPath", "", "Absolute path to a separately installed FFmpeg with h264_nvenc.").Value;
+        string executable = Config.Bind("Video", "FFmpegPath", "", "FFmpeg path, relative to the game directory or absolute. Configured by Desktop.").Value;
+        if (executable.Length != 0) executable = Path.GetFullPath(executable, BepInEx.Paths.GameRootPath);
         stream = AddComponent<GameStream>();
         stream.Initialize(executable, message => Log.LogInfo(message), enabled);
     }
@@ -81,13 +82,13 @@ public sealed class GameStream : MonoBehaviour
         desiredEnabled = enabled;
         desktop = new LocalControlServer("Miside.Camera.Video.v1", () => Volatile.Read(ref state), operation => {
             if (operation == "enable") {
-                if (!File.Exists(executable) || !Path.IsPathFullyQualified(executable)) throw new FormatException("Configure a valid FFmpeg path and restart the host");
+                if (!File.Exists(executable) || !Path.IsPathFullyQualified(executable)) throw new FormatException("Bundled FFmpeg is unavailable. Restart the game through Desktop.");
                 desiredEnabled = true;
             }
             else if (operation == "disable") desiredEnabled = false;
             else throw new FormatException("Unknown video operation");
         }, logger);
-        if (enabled && (!File.Exists(path) || !Path.IsPathFullyQualified(path))) { desiredEnabled = false; lastError = "Configure the separate FFmpeg executable"; }
+        if (enabled && (!File.Exists(path) || !Path.IsPathFullyQualified(path))) { desiredEnabled = false; lastError = "Bundled FFmpeg is unavailable. Restart the game through Desktop."; }
         if (!SystemInfo.supportsAsyncGPUReadback) throw new NotSupportedException("Asynchronous GPU capture is required.");
         BepInEx.Unity.IL2CPP.Utils.MonoBehaviourExtensions.StartCoroutine(this, Capture());
     }

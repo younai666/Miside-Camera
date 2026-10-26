@@ -445,10 +445,10 @@
     <value>Сначала подготовьте BepInEx IL2CPP bindings для этой версии игры.</value>
   </data>
   <data name="SelectFfmpeg" xml:space="preserve">
-    <value>Выберите отдельно установленный FFmpeg.</value>
+    <value>Не найден комплектный FFmpeg. Распакуйте весь архив Desktop заново.</value>
   </data>
   <data name="SelectMediaMtx" xml:space="preserve">
-    <value>Выберите отдельно установленный MediaMTX.</value>
+    <value>Не найден комплектный MediaMTX. Распакуйте весь архив Desktop заново.</value>
   </data>
   <data name="InvalidAccessCode" xml:space="preserve">
     <value>Код доступа должен состоять из 6 цифр.</value>
@@ -499,6 +499,7 @@
     <value>USB-адаптер не найден. Включите USB-модем в настройках телефона.</value>
   </data>
   <data name="RestartForNetwork" xml:space="preserve">
-    <value>Закройте игру и перезапустите рабочую область, чтобы применить способ подключения или код доступа.</value>
+    <value>После изменения режима, кода или расположения медиапрограмм закройте игру и перезапустите рабочую область.</value>
   </data>
+  <data name="UnsupportedHost" xml:space="preserve"><value>Для этой игры в выпуске нет совместимого Camera Adapter. Выберите NeuroMita.exe.</value></data>
 </root>

@@ -10,3 +10,9 @@ For v0.2.0, both renamed Release builds passed, along with Core/Desktop protocol
 - The recording button has equal size to the other toolbar controls and keeps its color/size across disabled, pressed and recording states. Three Desktop languages were checked; a real mixed-DPI multi-monitor move was not performed.
 
 The current host-specific adapter is built against NeuroMita Unity IL2CPP v2026.10.22. Standalone MiSide, other host builds, other GPU encoders, every Android device and a fixed motion-to-photon latency are not claimed. Real game screenshots, recordings, internal interop and historical probes stay private and are not public release assets.
+
+## v0.2.1 targeted pass
+
+The current recording contract supersedes the earlier full-frame transmuxing checks above: output is the centered 9:16 Viewfinder crop, exported at 1080×1920, without Android UI. A synthetic emulator export verifies decoded dimensions and four central color quadrants while rejecting the side panels. Desktop checks cover nested host discovery, MiSide detection without false adapter support, persisted manual paths, old developer-tool path removal and application-relative tool resolution. Release smoke checks cover the bundled runtime and final portrait gallery output; no repeat Camera/Pose acceptance or long soak is required for these changes.
+
+The signed Release APK also saved a short real-game recording through the bundled FFmpeg/NVENC + MediaMTX path. The decoded frame was inspected at 1080×1920 and contained only the central game crop, with no Android controls/grid/timer. Media3 may store the encoded track in landscape with standard MP4 rotation metadata; its displayed orientation is portrait. Desktop was started with `C:\Windows` as working directory; both media processes ran from the bundle. Host configuration uses forward slashes to avoid BepInEx string unescaping of relative Windows paths.

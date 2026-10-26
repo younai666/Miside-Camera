@@ -1,6 +1,7 @@
 param(
     [Parameter(Mandatory = $true)][string]$HostDirectory,
     [string]$OutputDirectory,
+    [Parameter(Mandatory = $true)][string]$MediaDirectory,
     [string]$Dotnet = 'dotnet',
     [string]$DesktopDotnet = $Dotnet
 )
@@ -8,6 +9,11 @@ param(
 $ErrorActionPreference = 'Stop'
 $repoRoot = Split-Path -Parent $PSScriptRoot
 $hostRoot = (Resolve-Path -LiteralPath $HostDirectory).Path
+$mediaRoot = (Resolve-Path -LiteralPath $MediaDirectory).Path
+foreach ($required in @('ffmpeg/ffmpeg.exe', 'ffmpeg/licenses/COPYING.LGPLv2.1', 'ffmpeg/sources/ffmpeg-n9.0.2.tar.gz',
+    'ffmpeg/sources/nv-codec-headers-n13.0.19.0.tar.gz', 'ffmpeg/sources/build_ffmpeg.sh', 'mediamtx/mediamtx.exe', 'mediamtx/LICENSE', 'mediamtx/licenses/Go-LICENSE.txt')) {
+    if (-not (Test-Path -LiteralPath (Join-Path $mediaRoot $required))) { throw "Missing bundled media component: $required" }
+}
 if (-not (Test-Path -LiteralPath (Join-Path $hostRoot 'BepInEx/interop/Assembly-CSharp.dll'))) {
     throw 'HostDirectory must contain the matching locally generated IL2CPP interop.'
 }
@@ -26,6 +32,10 @@ foreach ($project in @('Miside.Camera.Plugin', 'Miside.Camera.Core', 'Miside.Cam
 & $DesktopDotnet publish (Join-Path $repoRoot 'desktop/Miside.Camera.Desktop/Miside.Camera.Desktop.csproj') `
     -c Release -r win-x64 --self-contained true "-p:AdapterDirectory=$adapterDirectory" -o $OutputDirectory -v:q
 if ($LASTEXITCODE -ne 0) { throw 'Desktop publish failed' }
+New-Item -ItemType Directory -Path (Join-Path $OutputDirectory 'tools') -Force | Out-Null
+foreach ($name in @('ffmpeg', 'mediamtx')) {
+    Copy-Item -LiteralPath (Join-Path $mediaRoot $name) -Destination (Join-Path $OutputDirectory 'tools') -Recurse -Force
+}
 
 # Self-contained .NET/WPF belongs to the bundle; retain notices from the exact runtime packs.
 $packageLocation = & $DesktopDotnet nuget locals global-packages --list --force-english-output

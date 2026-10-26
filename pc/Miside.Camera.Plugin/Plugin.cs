@@ -3,7 +3,7 @@ using BepInEx.Unity.IL2CPP;
 
 namespace Miside.Camera.Plugin;
 
-[BepInPlugin("dev.miside.camera", "Miside Camera", "0.2.0")]
+[BepInPlugin("dev.miside.camera", "Miside Camera", "0.2.1")]
 public sealed class Plugin : BasePlugin
 {
     private IDisposable? runtime;

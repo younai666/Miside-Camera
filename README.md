@@ -2,7 +2,7 @@
 
 Use an Android phone as a handheld 6DoF game camera and live viewfinder.
 
-[Download v0.2.0](https://github.com/younai666/Miside-Camera/releases/tag/v0.2.0) · [中文](README.zh-CN.md) · [Русский](README.ru.md)
+[Download v0.2.1](https://github.com/younai666/Miside-Camera/releases/tag/v0.2.1) · [中文](README.zh-CN.md) · [Русский](README.ru.md)
 
 **Miside Camera Desktop** manages the game adapter, pairing, video services and recovery. **Miside Camera Android** provides ARCore or Manual control, zoom, recenter and original-stream recording. Connect over USB tethering or LAN; normal operation needs no ADB or USB debugging.
 
@@ -10,10 +10,11 @@ Use an Android phone as a handheld 6DoF game camera and live viewfinder.
 
 ## Install
 
-1. Download `Miside-Camera-Desktop-v0.2.0.zip`, extract it, and open `Miside Camera Desktop.exe` on Windows 10/11 x64. No separate .NET installation is needed.
-2. Install `Miside-Camera-Android-v0.2.0.apk` on Android 8 or newer. ARCore tracking needs a supported device and [Google Play Services for AR](https://play.google.com/store/apps/details?id=com.google.ar.core); Manual mode remains available.
+1. Download `Miside-Camera-Desktop-v0.2.1.zip`, extract it, and open `Miside Camera Desktop.exe` on Windows 10/11 x64. No separate .NET installation is needed.
+2. Install `Miside-Camera-Android-v0.2.1.apk` on Android 8 or newer. ARCore tracking needs a supported device and [Google Play Services for AR](https://play.google.com/store/apps/details?id=com.google.ar.core); Manual mode remains available.
 3. Prepare the supported game with [BepInEx Unity IL2CPP](https://builds.bepinex.dev/projects/bepinex_be) build `6.0.0-be.788`. Run the game once until `BepInEx/interop` has been generated, then close it.
-4. Download [FFmpeg with NVENC](https://www.gyan.dev/ffmpeg/builds/) and [MediaMTX](https://github.com/bluenviron/mediamtx/releases). In Desktop **Settings**, select the game executable, `ffmpeg.exe` and `mediamtx.exe`. The tested video path uses an NVIDIA GPU with NVENC. These tools are separate downloads, not bundled.
+4. Desktop detects running hosts, adjacent game folders and Steam libraries (including MiSide). A prepared `NeuroMita.exe` host takes priority; a valid saved selection is retained. If no compatible host is found, select `NeuroMita.exe` in **Settings** and save. Standalone MiSide can be located, but it still needs its own adapter, which this release does not provide.
+5. **FFmpeg/NVENC and MediaMTX are included** under `tools/` and load relative to the Desktop executable, regardless of the working directory. Do not download or configure them separately. NVIDIA hardware and an installed compatible driver are still required; the driver is not included.
 
 ## Connect
 
@@ -23,13 +24,14 @@ Use an Android phone as a handheld 6DoF game camera and live viewfinder.
 
 Enter a game scene. Select **ARCore** to move and rotate the camera with the phone; use **Manual** for debugging or fallback. PC mouse/WASD remain active. **More → Recenter** establishes a new phone reference; **Zoom** changes the camera FOV. Switching ARCore to Manual releases the previous phone offset.
 
-Tap **Record** to start or stop. MP4 files appear in the phone gallery under `Movies/Miside Camera`. Recordings contain the original **1920×1080 H.264 game video**, with no Android borders, grid, buttons or timer, and no re-encoding. The current stream has no audio track. Disconnecting ends and saves the current recording.
+Tap **Record** to start or stop. MP4 files appear in the phone gallery under `Movies/Miside Camera`. The saved **1080×1920 portrait video** matches the centered **9:16 Viewfinder crop**, excluding the rest of the PC image and all Android borders, grid, buttons and timer. Stopping finalizes the crop/export before publishing to the gallery; a short Saving state is normal. Only a temporary private cache contains the input stream, and it is removed after export. The current stream is video-only. Disconnecting also finishes and saves the recording.
 
 ## If connection fails
 
 - USB: confirm Windows sees the tethering network adapter. Refresh the address in Desktop Settings.
 - LAN: check that VPNs/router isolation are not separating the devices. Allow the relevant applications through the firewall; do not disable the entire firewall.
-- After changing connection mode or code, close the game and restart the workspace.
+- After changing connection mode/code, upgrading the adapter, or moving an active Desktop bundle, close the game and restart the workspace.
+- Keep the complete extracted Desktop folder together, including `tools/` and `licenses/`.
 - Discovery uses UDP/TCP `39569`, Pose uses TCP `39570`, video uses TCP `8554`. Use trusted USB/LAN connections; do not expose these ports to the internet.
 
 ## Development and scope

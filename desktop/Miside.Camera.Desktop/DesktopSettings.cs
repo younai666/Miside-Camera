@@ -17,13 +17,15 @@ public class Observable : INotifyPropertyChanged
 
 public sealed class DesktopSettings : Observable
 {
-    private string gamePath = "", ffmpegPath = "", mediaMtxPath = "", accessCode = "";
+    private string gamePath = "", accessCode = "";
     private bool lanEnabled, usbEnabled, autoStart = true, closeGameOnStop = true;
     private string language = "en";
     public string Language { get => language; set => Set(ref language, value); }
     public string GamePath { get => gamePath; set => Set(ref gamePath, value); }
-    public string FfmpegPath { get => ffmpegPath; set => Set(ref ffmpegPath, value); }
-    public string MediaMtxPath { get => mediaMtxPath; set => Set(ref mediaMtxPath, value); }
+    [JsonIgnore] public string FfmpegPath => Path.Combine("tools", "ffmpeg", "ffmpeg.exe");
+    [JsonIgnore] public string MediaMtxPath => Path.Combine("tools", "mediamtx", "mediamtx.exe");
+    [JsonIgnore] public string FfmpegExecutable => Path.GetFullPath(FfmpegPath, AppContext.BaseDirectory);
+    [JsonIgnore] public string MediaMtxExecutable => Path.GetFullPath(MediaMtxPath, AppContext.BaseDirectory);
     public string AccessCode { get => accessCode; set => Set(ref accessCode, value); }
     public bool LanEnabled {
         get => lanEnabled;
@@ -45,6 +47,10 @@ public sealed class DesktopSettings : Observable
     public static string DefaultFile => Path.Combine(DataDirectory, "settings.json");
     public static DesktopSettings Load(string path)
         => File.Exists(path) ? JsonSerializer.Deserialize<DesktopSettings>(File.ReadAllText(path)) ?? new() : new();
+    public void DetectHost()
+    {
+        if (!File.Exists(GamePath)) GamePath = HostLocator.Find() ?? "";
+    }
     public void Save(string path)
     {
         if (AccessCode.Length == 0) AccessCode = RandomNumberGenerator.GetInt32(100000, 1000000).ToString();
@@ -55,12 +61,12 @@ public sealed class DesktopSettings : Observable
     public void Validate()
     {
         if (!File.Exists(GamePath) || !string.Equals(Path.GetFileName(GamePath), "NeuroMita.exe", StringComparison.OrdinalIgnoreCase))
-            throw E("SelectGame");
+            throw E(File.Exists(GamePath) ? "UnsupportedHost" : "SelectGame");
         string host = Path.GetDirectoryName(Path.GetFullPath(GamePath))!;
         if (!File.Exists(Path.Combine(host, "BepInEx", "interop", "Assembly-CSharp.dll")))
             throw E("PrepareInterop");
-        if (!File.Exists(FfmpegPath) || !Path.IsPathFullyQualified(FfmpegPath)) throw E("SelectFfmpeg");
-        if (!File.Exists(MediaMtxPath) || !Path.IsPathFullyQualified(MediaMtxPath)) throw E("SelectMediaMtx");
+        if (!File.Exists(FfmpegExecutable)) throw E("SelectFfmpeg");
+        if (!File.Exists(MediaMtxExecutable)) throw E("SelectMediaMtx");
         if (NetworkEnabled && (AccessCode.Length != 6 || !AccessCode.All(char.IsAsciiDigit))) throw E("InvalidAccessCode");
     }
 }

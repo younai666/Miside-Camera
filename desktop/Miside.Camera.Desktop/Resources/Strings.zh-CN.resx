@@ -1,0 +1,504 @@
+<?xml version='1.0' encoding='utf-8'?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <data name="Workspace" xml:space="preserve">
+    <value>工作区</value>
+  </data>
+  <data name="AndroidConnection" xml:space="preserve">
+    <value>Android 连接</value>
+  </data>
+  <data name="CameraAdapter" xml:space="preserve">
+    <value>Camera Adapter</value>
+  </data>
+  <data name="VideoPage" xml:space="preserve">
+    <value>串流状态</value>
+  </data>
+  <data name="Stream" xml:space="preserve">
+    <value>串流</value>
+  </data>
+  <data name="PoseCamera" xml:space="preserve">
+    <value>Pose / Camera</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="Logs" xml:space="preserve">
+    <value>日志</value>
+  </data>
+  <data name="Brand" xml:space="preserve">
+    <value>Miside</value>
+  </data>
+  <data name="Desktop" xml:space="preserve">
+    <value>Desktop</value>
+  </data>
+  <data name="Android" xml:space="preserve">
+    <value>Android</value>
+  </data>
+  <data name="ProductPart" xml:space="preserve">
+    <value>Camera Desktop</value>
+  </data>
+  <data name="DesktopIcon" xml:space="preserve">
+    <value>Miside Camera Desktop 图标</value>
+  </data>
+  <data name="Minimize" xml:space="preserve">
+    <value>最小化</value>
+  </data>
+  <data name="MaximizeRestore" xml:space="preserve">
+    <value>最大化或还原</value>
+  </data>
+  <data name="CloseDesktop" xml:space="preserve">
+    <value>关闭 Desktop</value>
+  </data>
+  <data name="WorkspaceShortcut" xml:space="preserve">
+    <value>启动或关闭工作区 · Ctrl+Enter</value>
+  </data>
+  <data name="Inspect" xml:space="preserve">
+    <value>查看参数</value>
+  </data>
+  <data name="Reconnect" xml:space="preserve">
+    <value>重连</value>
+  </data>
+  <data name="ReconnectStream" xml:space="preserve">
+    <value>重连串流</value>
+  </data>
+  <data name="GameCamera" xml:space="preserve">
+    <value>游戏 Camera</value>
+  </data>
+  <data name="ControlRtt" xml:space="preserve">
+    <value>控制 RTT</value>
+  </data>
+  <data name="CaptureFps" xml:space="preserve">
+    <value>采集 FPS</value>
+  </data>
+  <data name="PlaybackState" xml:space="preserve">
+    <value>播放状态</value>
+  </data>
+  <data name="Device" xml:space="preserve">
+    <value>设备</value>
+  </data>
+  <data name="Peer" xml:space="preserve">
+    <value>连接地址</value>
+  </data>
+  <data name="InputSource" xml:space="preserve">
+    <value>输入源</value>
+  </data>
+  <data name="Tracking" xml:space="preserve">
+    <value>追踪</value>
+  </data>
+  <data name="Discovery" xml:space="preserve">
+    <value>自动发现</value>
+  </data>
+  <data name="State" xml:space="preserve">
+    <value>状态</value>
+  </data>
+  <data name="GamePid" xml:space="preserve">
+    <value>Miside PID</value>
+  </data>
+  <data name="AppliedFrame" xml:space="preserve">
+    <value>已应用帧</value>
+  </data>
+  <data name="Scene" xml:space="preserve">
+    <value>场景</value>
+  </data>
+  <data name="Fov" xml:space="preserve">
+    <value>FOV</value>
+  </data>
+  <data name="WorldX" xml:space="preserve">
+    <value>世界 X · m</value>
+  </data>
+  <data name="WorldY" xml:space="preserve">
+    <value>世界 Y · m</value>
+  </data>
+  <data name="WorldZ" xml:space="preserve">
+    <value>世界 Z · m</value>
+  </data>
+  <data name="Pitch" xml:space="preserve">
+    <value>Pitch</value>
+  </data>
+  <data name="Yaw" xml:space="preserve">
+    <value>Yaw</value>
+  </data>
+  <data name="Roll" xml:space="preserve">
+    <value>Roll</value>
+  </data>
+  <data name="VideoLink" xml:space="preserve">
+    <value>视频链路</value>
+  </data>
+  <data name="CaptureResolution" xml:space="preserve">
+    <value>采集分辨率</value>
+  </data>
+  <data name="AndroidPlayback" xml:space="preserve">
+    <value>Android 播放</value>
+  </data>
+  <data name="AndroidResolution" xml:space="preserve">
+    <value>Android 分辨率</value>
+  </data>
+  <data name="PlaybackBuffer" xml:space="preserve">
+    <value>播放缓冲</value>
+  </data>
+  <data name="EncodingTransport" xml:space="preserve">
+    <value>编码与传输</value>
+  </data>
+  <data name="EncoderPid" xml:space="preserve">
+    <value>NVENC PID</value>
+  </data>
+  <data name="RelayPid" xml:space="preserve">
+    <value>MediaMTX PID</value>
+  </data>
+  <data name="Encoding" xml:space="preserve">
+    <value>编码</value>
+  </data>
+  <data name="Bitrate" xml:space="preserve">
+    <value>码率</value>
+  </data>
+  <data name="BitrateValue" xml:space="preserve">
+    <value>VBR 20 / 最大 30 Mbps</value>
+  </data>
+  <data name="LastEncoderMessage" xml:space="preserve">
+    <value>最近编码信息</value>
+  </data>
+  <data name="InputPose" xml:space="preserve">
+    <value>输入 Pose</value>
+  </data>
+  <data name="InputX" xml:space="preserve">
+    <value>X · m</value>
+  </data>
+  <data name="InputY" xml:space="preserve">
+    <value>Y · m</value>
+  </data>
+  <data name="InputZ" xml:space="preserve">
+    <value>Z · m</value>
+  </data>
+  <data name="Quaternion" xml:space="preserve">
+    <value>Q · XYZW</value>
+  </data>
+  <data name="InputPosition" xml:space="preserve">
+    <value>输入位置 · m</value>
+  </data>
+  <data name="Programs" xml:space="preserve">
+    <value>程序</value>
+  </data>
+  <data name="GamePath" xml:space="preserve">
+    <value>Miside 路径</value>
+  </data>
+  <data name="FfmpegLabel" xml:space="preserve">
+    <value>FFmpeg / NVENC</value>
+  </data>
+  <data name="FfmpegPath" xml:space="preserve">
+    <value>FFmpeg / NVENC 路径</value>
+  </data>
+  <data name="MediaMtxLabel" xml:space="preserve">
+    <value>MediaMTX</value>
+  </data>
+  <data name="MediaMtxPath" xml:space="preserve">
+    <value>MediaMTX 路径</value>
+  </data>
+  <data name="Browse" xml:space="preserve">
+    <value>选择…</value>
+  </data>
+  <data name="Connection" xml:space="preserve">
+    <value>连接</value>
+  </data>
+  <data name="LanConnection" xml:space="preserve">
+    <value>局域网手机连接</value>
+  </data>
+  <data name="SixDigitCode" xml:space="preserve">
+    <value>六位连接码</value>
+  </data>
+  <data name="AccessCode" xml:space="preserve">
+    <value>Desktop 连接码</value>
+  </data>
+  <data name="LanNotice" xml:space="preserve">
+    <value>USB / LAN 连接使用连接码；控制与视频不加密，仅用于可信设备和网络。</value>
+  </data>
+  <data name="StartupShutdown" xml:space="preserve">
+    <value>启动与关闭</value>
+  </data>
+  <data name="AutoStart" xml:space="preserve">
+    <value>打开 Desktop 后自动启动工作区</value>
+  </data>
+  <data name="CloseGameOnStop" xml:space="preserve">
+    <value>关闭工作区时同时退出 Miside</value>
+  </data>
+  <data name="SaveSettings" xml:space="preserve">
+    <value>保存设置</value>
+  </data>
+  <data name="OpenLogs" xml:space="preserve">
+    <value>打开日志目录</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>语言</value>
+  </data>
+  <data name="Chinese" xml:space="preserve">
+    <value>中文</value>
+  </data>
+  <data name="English" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="Russian" xml:space="preserve">
+    <value>Русский</value>
+  </data>
+  <data name="NotStarted" xml:space="preserve">
+    <value>未启动</value>
+  </data>
+  <data name="NotConnected" xml:space="preserve">
+    <value>未连接</value>
+  </data>
+  <data name="WaitingGame" xml:space="preserve">
+    <value>等待游戏</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>未开启</value>
+  </data>
+  <data name="PauseAdapter" xml:space="preserve">
+    <value>暂停 Adapter</value>
+  </data>
+  <data name="EnableAdapter" xml:space="preserve">
+    <value>启用 Adapter</value>
+  </data>
+  <data name="StopStream" xml:space="preserve">
+    <value>停止串流</value>
+  </data>
+  <data name="StartStream" xml:space="preserve">
+    <value>启动串流</value>
+  </data>
+  <data name="StopWorkspace" xml:space="preserve">
+    <value>关闭工作区</value>
+  </data>
+  <data name="StartWorkspace" xml:space="preserve">
+    <value>启动工作区</value>
+  </data>
+  <data name="SettingsSaved" xml:space="preserve">
+    <value>设置已保存。</value>
+  </data>
+  <data name="WaitingPlugin" xml:space="preserve">
+    <value>等待插件</value>
+  </data>
+  <data name="Paused" xml:space="preserve">
+    <value>已暂停</value>
+  </data>
+  <data name="Connected" xml:space="preserve">
+    <value>已连接</value>
+  </data>
+  <data name="CameraActive" xml:space="preserve">
+    <value>已接管</value>
+  </data>
+  <data name="TrackingPaused" xml:space="preserve">
+    <value>追踪暂停</value>
+  </data>
+  <data name="SceneChanging" xml:space="preserve">
+    <value>场景切换中</value>
+  </data>
+  <data name="Released" xml:space="preserve">
+    <value>已释放</value>
+  </data>
+  <data name="WaitingPose" xml:space="preserve">
+    <value>等待 Pose</value>
+  </data>
+  <data name="Stopped" xml:space="preserve">
+    <value>已停止</value>
+  </data>
+  <data name="AndroidPlaying" xml:space="preserve">
+    <value>Android 正在播放</value>
+  </data>
+  <data name="Publishing" xml:space="preserve">
+    <value>正在推送</value>
+  </data>
+  <data name="Recovering" xml:space="preserve">
+    <value>恢复中</value>
+  </data>
+  <data name="TrackingValid" xml:space="preserve">
+    <value>有效</value>
+  </data>
+  <data name="TrackingHold" xml:space="preserve">
+    <value>暂停</value>
+  </data>
+  <data name="LanDiscovery" xml:space="preserve">
+    <value>局域网 · 连接码验证</value>
+  </data>
+  <data name="LocalEmulator" xml:space="preserve">
+    <value>本机模拟器</value>
+  </data>
+  <data name="Playing" xml:space="preserve">
+    <value>正在播放</value>
+  </data>
+  <data name="Buffering" xml:space="preserve">
+    <value>缓冲中</value>
+  </data>
+  <data name="Reconnecting" xml:space="preserve">
+    <value>重连中</value>
+  </data>
+  <data name="Connecting" xml:space="preserve">
+    <value>连接中</value>
+  </data>
+  <data name="Starting" xml:space="preserve">
+    <value>启动中</value>
+  </data>
+  <data name="WaitingHostPlugin" xml:space="preserve">
+    <value>等待游戏插件</value>
+  </data>
+  <data name="WaitingVideoPlugin" xml:space="preserve">
+    <value>等待串流插件</value>
+  </data>
+  <data name="WaitingAndroid" xml:space="preserve">
+    <value>等待 Android</value>
+  </data>
+  <data name="StartFailed" xml:space="preserve">
+    <value>启动失败</value>
+  </data>
+  <data name="Closing" xml:space="preserve">
+    <value>关闭中</value>
+  </data>
+  <data name="GameExited" xml:space="preserve">
+    <value>游戏已退出</value>
+  </data>
+  <data name="StreamRecovering" xml:space="preserve">
+    <value>串流恢复中</value>
+  </data>
+  <data name="WaitingCamera" xml:space="preserve">
+    <value>等待 Camera</value>
+  </data>
+  <data name="Running" xml:space="preserve">
+    <value>运行中</value>
+  </data>
+  <data name="PrepareDesktopHost" xml:space="preserve">
+    <value>请先关闭已运行的 Miside；首次启动需要部署 Desktop 管理接口。</value>
+  </data>
+  <data name="CannotStartGame" xml:space="preserve">
+    <value>无法启动 Miside。</value>
+  </data>
+  <data name="GameStarted" xml:space="preserve">
+    <value>Miside 已启动 · PID {0}</value>
+  </data>
+  <data name="WorkspaceReady" xml:space="preserve">
+    <value>工作区已就绪；Camera、串流和自动发现已启用。</value>
+  </data>
+  <data name="AdapterEnabled" xml:space="preserve">
+    <value>Camera Adapter 已启用。</value>
+  </data>
+  <data name="AdapterPaused" xml:space="preserve">
+    <value>Camera Adapter 暂停；恢复游戏原镜头。</value>
+  </data>
+  <data name="StreamEnabled" xml:space="preserve">
+    <value>串流已启用。</value>
+  </data>
+  <data name="StreamStopped" xml:space="preserve">
+    <value>串流已停止；Camera/Pose 保持独立。</value>
+  </data>
+  <data name="MediaRestarted" xml:space="preserve">
+    <value>媒体链路已重新启动；Pose 连接未重建。</value>
+  </data>
+  <data name="GameExitPending" xml:space="preserve">
+    <value>Miside 尚未退出，请在游戏内保存并关闭后再退出 Desktop。</value>
+  </data>
+  <data name="CleanupAfterExit" xml:space="preserve">
+    <value>Miside 已退出，继续清理媒体与发现服务。</value>
+  </data>
+  <data name="WorkspaceStopped" xml:space="preserve">
+    <value>工作区已关闭；Camera 已释放，媒体进程已停止。</value>
+  </data>
+  <data name="WaitHostTimeout" xml:space="preserve">
+    <value>游戏插件未在 {0:0.#} 秒内确认状态变化。请检查游戏和插件日志。</value>
+  </data>
+  <data name="StartWorkspaceFirst" xml:space="preserve">
+    <value>请先启动工作区。</value>
+  </data>
+  <data name="PortOccupied" xml:space="preserve">
+    <value>端口 {0} 已被占用。请停止原后台服务后重试；Desktop 不会终止外部进程。</value>
+  </data>
+  <data name="RelayStartFailed" xml:space="preserve">
+    <value>MediaMTX 启动失败。</value>
+  </data>
+  <data name="RelayExited" xml:space="preserve">
+    <value>MediaMTX 已退出，请检查日志中的配置或端口错误。</value>
+  </data>
+  <data name="RelayReady" xml:space="preserve">
+    <value>MediaMTX 已就绪 · PID {0}</value>
+  </data>
+  <data name="RelayNotReady" xml:space="preserve">
+    <value>MediaMTX 未能就绪。</value>
+  </data>
+  <data name="StopServicesAfterExit" xml:space="preserve">
+    <value>Miside 已退出，停止媒体与发现服务。</value>
+  </data>
+  <data name="MediaRecovered" xml:space="preserve">
+    <value>媒体服务已自动恢复。</value>
+  </data>
+  <data name="MediaRecoveryFailed" xml:space="preserve">
+    <value>媒体恢复失败：{0}</value>
+  </data>
+  <data name="MissingAdapter" xml:space="preserve">
+    <value>Desktop 缺少配套插件 {0}；请使用完整发布包。</value>
+  </data>
+  <data name="AdaptersDeployed" xml:space="preserve">
+    <value>配套 Adapter 已部署；未复制宿主或 interop 文件。</value>
+  </data>
+  <data name="SelectGame" xml:space="preserve">
+    <value>请选择受支持游戏的可执行文件。</value>
+  </data>
+  <data name="PrepareInterop" xml:space="preserve">
+    <value>游戏尚未准备对应版本的 BepInEx IL2CPP 绑定，请先完成宿主准备。</value>
+  </data>
+  <data name="SelectFfmpeg" xml:space="preserve">
+    <value>请选择单独安装的 FFmpeg。</value>
+  </data>
+  <data name="SelectMediaMtx" xml:space="preserve">
+    <value>请选择单独安装的 MediaMTX。</value>
+  </data>
+  <data name="InvalidAccessCode" xml:space="preserve">
+    <value>连接码必须为六位数字。</value>
+  </data>
+  <data name="HostClosed" xml:space="preserve">
+    <value>游戏管理连接已关闭。</value>
+  </data>
+  <data name="HostStateTooLarge" xml:space="preserve">
+    <value>游戏状态超过允许大小。</value>
+  </data>
+  <data name="HostIncompatible" xml:space="preserve">
+    <value>游戏管理协议不兼容。</value>
+  </data>
+  <data name="HostRejected" xml:space="preserve">
+    <value>游戏拒绝了管理命令。</value>
+  </data>
+  <data name="HostInvalidState" xml:space="preserve">
+    <value>游戏返回了无效的管理状态。</value>
+  </data>
+  <data name="FileFilter" xml:space="preserve">
+    <value>Windows 程序 (*.exe)|*.exe</value>
+  </data>
+  <data name="UdpDiscoveryStopped" xml:space="preserve">
+    <value>自动发现停止：{0}</value>
+  </data>
+  <data name="TcpDiscoveryError" xml:space="preserve">
+    <value>TCP 自动发现：{0}</value>
+  </data>
+  <data name="MediaLog" xml:space="preserve">
+    <value>MediaMTX · {0}</value>
+  </data>
+  <data name="ExternalMessage" xml:space="preserve">
+    <value>{0}</value>
+  </data>
+  <data name="Manual" xml:space="preserve">
+    <value>Manual</value>
+  </data>
+  <data name="UsbMode" xml:space="preserve">
+    <value>USB 网络共享</value>
+  </data>
+  <data name="ConnectionMode" xml:space="preserve">
+    <value>连接方式</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>刷新</value>
+  </data>
+  <data name="UsbWaiting" xml:space="preserve">
+    <value>未检测到 USB 网卡，请在手机系统中开启 USB 网络共享。</value>
+  </data>
+  <data name="RestartForNetwork" xml:space="preserve">
+    <value>请先关闭游戏，再重新启动工作区，以应用连接方式或连接码。</value>
+  </data>
+</root>

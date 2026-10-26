@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="en">
+  <string name="app_name" translatable="false">Miside Camera Android</string>
+  <string name="language_zh" translatable="false">中文</string>
+  <string name="language_en" translatable="false">English</string>
+  <string name="language_ru" translatable="false">Русский</string>
+  <string name="find_desktop">Find Desktop</string>
+  <string name="discovering_desktop">Searching…</string>
+  <string name="desktop_code">Desktop access code</string>
+  <string name="access_code_error">Incorrect Desktop access code</string>
+  <string name="connect_pc">Connect PC</string>
+  <string name="connecting">Connecting…</string>
+  <string name="pc_connected">PC connected</string>
+  <string name="reconnect">Reconnect</string>
+  <string name="connected">Connected</string>
+  <string name="disconnected">Disconnected</string>
+  <string name="connection_failed">Connection failed</string>
+  <string name="pc_address">PC address</string>
+  <string name="connect">Connect</string>
+  <string name="disconnect">Disconnect</string>
+  <string name="address_required">Enter a PC address</string>
+  <string name="connection_error">Cannot connect to PC</string>
+  <string name="recenter">Recenter</string>
+  <string name="record_video">Record</string>
+  <string name="stop_recording">Stop</string>
+  <string name="recording_starting">Starting</string>
+  <string name="recording_saving">Saving…</string>
+  <string name="recording_timer">REC %1$s</string>
+  <string name="recording_saved">Recording saved to gallery</string>
+  <string name="recording_save_failed">Could not save recording. Check available storage and retry.</string>
+  <string name="recording_no_frames">No recordable video frames received. Nothing was saved.</string>
+  <string name="recording_requires_video">Connect to a playing 1920×1080 game stream first</string>
+  <string name="recording_storage_permission">Storage permission is required to save recordings</string>
+  <string name="zoom">Zoom</string>
+  <string name="mode">Mode</string>
+  <string name="more">More</string>
+  <string name="manual">Manual</string>
+  <string name="developer">Developer</string>
+  <string name="grid">Grid</string>
+  <string name="language">Language</string>
+  <string name="pose">Pose</string>
+  <string name="network">Network</string>
+  <string name="target">Destination</string>
+  <string name="transport">Transport</string>
+  <string name="transport_value">TCP / JSON v2 / target 20 Hz</string>
+  <string name="status">Status</string>
+  <string name="acknowledgements">PC acknowledgements</string>
+  <string name="round_trip">Round trip</string>
+  <string name="translation">Position</string>
+  <string name="rotation">Rotation</string>
+  <string name="reset_axes">Reset six axes</string>
+  <string name="close_panel">Close panel</string>
+  <string name="viewfinder_description">Game viewfinder</string>
+  <string name="zoom_description">Zoom factor</string>
+  <string name="decrease_axis">Decrease %1$s</string>
+  <string name="increase_axis">Increase %1$s</string>
+  <string name="expanded">Expanded</string>
+  <string name="collapsed">Collapsed</string>
+  <string name="host_camera">Game camera</string>
+  <string name="game_scene">Game scene</string>
+  <string name="applied_frame">Applied camera frame</string>
+    <string name="ar_privacy_notice">ARCore uses Google Play Services for AR, provided by Google. Its data processing is covered by Google’s Privacy Policy.</string>
+    <string name="google_privacy">Google Privacy Policy</string>
+  <string name="usb_connection_hint">USB: enable USB tethering in system settings, select Desktop and enter its code.</string>
+</resources>

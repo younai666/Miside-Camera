@@ -1,0 +1,12 @@
+AndroidX Media3 1.8.0
+Copyright 2021 The Android Open Source Project
+Licensed under the Apache License, Version 2.0. See media3-LICENSE.txt.
+Source: https://github.com/androidx/media/tree/1.8.0
+
+Miside Camera modification, 2026-10-26:
+During APK assembly, the RTP sequence wrap arithmetic in
+androidx.media3.exoplayer.rtsp.RtpPacketReorderingQueue.calculateSequenceNumberShift
+uses a sequence space of 65536 instead of 65535. This prevents valid sequence zero
+from being discarded after sequence 65535. The upstream Maven artifact is unchanged.
+The modification is applied by android/buildSrc using AGP instrumentation;
+all other Media3 classes retain their upstream implementation.

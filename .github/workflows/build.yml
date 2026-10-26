@@ -1,0 +1,43 @@
+name: Build and protocol checks
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  desktop:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+      - run: dotnet build desktop/Miside.Camera.Desktop -c Release
+      - run: dotnet run --project desktop/Miside.Camera.Desktop.Checks -c Release
+
+  android:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: android-actions/setup-android@v3
+      - run: sdkmanager "platforms;android-36" "build-tools;36.0.0"
+      - run: bash gradlew assembleRelease assembleDebugAndroidTest lintRelease --no-daemon
+        working-directory: android
+
+  pc:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '6.0.x'
+      - run: dotnet restore pc/Miside.Camera.Plugin/Miside.Camera.Plugin.csproj --locked-mode
+      - run: dotnet build pc/Miside.Camera.Plugin/Miside.Camera.Plugin.csproj -c Release --no-restore
+      - run: dotnet run --project pc/Miside.Camera.Core.Checks -c Release

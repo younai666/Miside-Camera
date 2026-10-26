@@ -1,0 +1,504 @@
+<?xml version='1.0' encoding='utf-8'?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <data name="Workspace" xml:space="preserve">
+    <value>Рабочая область</value>
+  </data>
+  <data name="AndroidConnection" xml:space="preserve">
+    <value>Подключение Android</value>
+  </data>
+  <data name="CameraAdapter" xml:space="preserve">
+    <value>Адаптер камеры</value>
+  </data>
+  <data name="VideoPage" xml:space="preserve">
+    <value>Состояние потока</value>
+  </data>
+  <data name="Stream" xml:space="preserve">
+    <value>Трансляция</value>
+  </data>
+  <data name="PoseCamera" xml:space="preserve">
+    <value>Pose / камера</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="Logs" xml:space="preserve">
+    <value>Журнал</value>
+  </data>
+  <data name="Brand" xml:space="preserve">
+    <value>Miside</value>
+  </data>
+  <data name="Desktop" xml:space="preserve">
+    <value>Desktop</value>
+  </data>
+  <data name="Android" xml:space="preserve">
+    <value>Android</value>
+  </data>
+  <data name="ProductPart" xml:space="preserve">
+    <value>Camera Desktop</value>
+  </data>
+  <data name="DesktopIcon" xml:space="preserve">
+    <value>Значок Miside Camera Desktop</value>
+  </data>
+  <data name="Minimize" xml:space="preserve">
+    <value>Свернуть</value>
+  </data>
+  <data name="MaximizeRestore" xml:space="preserve">
+    <value>Развернуть / восстановить</value>
+  </data>
+  <data name="CloseDesktop" xml:space="preserve">
+    <value>Закрыть Desktop</value>
+  </data>
+  <data name="WorkspaceShortcut" xml:space="preserve">
+    <value>Запуск / остановка · Ctrl+Enter</value>
+  </data>
+  <data name="Inspect" xml:space="preserve">
+    <value>Параметры</value>
+  </data>
+  <data name="Reconnect" xml:space="preserve">
+    <value>Перезапуск</value>
+  </data>
+  <data name="ReconnectStream" xml:space="preserve">
+    <value>Перезапустить поток</value>
+  </data>
+  <data name="GameCamera" xml:space="preserve">
+    <value>Игровая камера</value>
+  </data>
+  <data name="ControlRtt" xml:space="preserve">
+    <value>RTT управления</value>
+  </data>
+  <data name="CaptureFps" xml:space="preserve">
+    <value>FPS захвата</value>
+  </data>
+  <data name="PlaybackState" xml:space="preserve">
+    <value>Воспроизведение</value>
+  </data>
+  <data name="Device" xml:space="preserve">
+    <value>Устройство</value>
+  </data>
+  <data name="Peer" xml:space="preserve">
+    <value>Адрес</value>
+  </data>
+  <data name="InputSource" xml:space="preserve">
+    <value>Источник</value>
+  </data>
+  <data name="Tracking" xml:space="preserve">
+    <value>Трекинг</value>
+  </data>
+  <data name="Discovery" xml:space="preserve">
+    <value>Обнаружение</value>
+  </data>
+  <data name="State" xml:space="preserve">
+    <value>Состояние</value>
+  </data>
+  <data name="GamePid" xml:space="preserve">
+    <value>PID Miside</value>
+  </data>
+  <data name="AppliedFrame" xml:space="preserve">
+    <value>Применённый кадр</value>
+  </data>
+  <data name="Scene" xml:space="preserve">
+    <value>Сцена</value>
+  </data>
+  <data name="Fov" xml:space="preserve">
+    <value>FOV</value>
+  </data>
+  <data name="WorldX" xml:space="preserve">
+    <value>X мира · м</value>
+  </data>
+  <data name="WorldY" xml:space="preserve">
+    <value>Y мира · м</value>
+  </data>
+  <data name="WorldZ" xml:space="preserve">
+    <value>Z мира · м</value>
+  </data>
+  <data name="Pitch" xml:space="preserve">
+    <value>Тангаж</value>
+  </data>
+  <data name="Yaw" xml:space="preserve">
+    <value>Рыскание</value>
+  </data>
+  <data name="Roll" xml:space="preserve">
+    <value>Крен</value>
+  </data>
+  <data name="VideoLink" xml:space="preserve">
+    <value>Видеопоток</value>
+  </data>
+  <data name="CaptureResolution" xml:space="preserve">
+    <value>Размер захвата</value>
+  </data>
+  <data name="AndroidPlayback" xml:space="preserve">
+    <value>Видео на Android</value>
+  </data>
+  <data name="AndroidResolution" xml:space="preserve">
+    <value>Размер на Android</value>
+  </data>
+  <data name="PlaybackBuffer" xml:space="preserve">
+    <value>Буфер</value>
+  </data>
+  <data name="EncodingTransport" xml:space="preserve">
+    <value>Кодирование и передача</value>
+  </data>
+  <data name="EncoderPid" xml:space="preserve">
+    <value>PID NVENC</value>
+  </data>
+  <data name="RelayPid" xml:space="preserve">
+    <value>PID MediaMTX</value>
+  </data>
+  <data name="Encoding" xml:space="preserve">
+    <value>Кодирование</value>
+  </data>
+  <data name="Bitrate" xml:space="preserve">
+    <value>Битрейт</value>
+  </data>
+  <data name="BitrateValue" xml:space="preserve">
+    <value>VBR 20 / макс. 30 Мбит/с</value>
+  </data>
+  <data name="LastEncoderMessage" xml:space="preserve">
+    <value>Сообщение кодировщика</value>
+  </data>
+  <data name="InputPose" xml:space="preserve">
+    <value>Входная поза</value>
+  </data>
+  <data name="InputX" xml:space="preserve">
+    <value>X · м</value>
+  </data>
+  <data name="InputY" xml:space="preserve">
+    <value>Y · м</value>
+  </data>
+  <data name="InputZ" xml:space="preserve">
+    <value>Z · м</value>
+  </data>
+  <data name="Quaternion" xml:space="preserve">
+    <value>Q · XYZW</value>
+  </data>
+  <data name="InputPosition" xml:space="preserve">
+    <value>Позиция входа · м</value>
+  </data>
+  <data name="Programs" xml:space="preserve">
+    <value>Программы</value>
+  </data>
+  <data name="GamePath" xml:space="preserve">
+    <value>Путь к Miside</value>
+  </data>
+  <data name="FfmpegLabel" xml:space="preserve">
+    <value>FFmpeg / NVENC</value>
+  </data>
+  <data name="FfmpegPath" xml:space="preserve">
+    <value>Путь к FFmpeg / NVENC</value>
+  </data>
+  <data name="MediaMtxLabel" xml:space="preserve">
+    <value>MediaMTX</value>
+  </data>
+  <data name="MediaMtxPath" xml:space="preserve">
+    <value>Путь к MediaMTX</value>
+  </data>
+  <data name="Browse" xml:space="preserve">
+    <value>Выбрать…</value>
+  </data>
+  <data name="Connection" xml:space="preserve">
+    <value>Подключение</value>
+  </data>
+  <data name="LanConnection" xml:space="preserve">
+    <value>Телефон по локальной сети</value>
+  </data>
+  <data name="SixDigitCode" xml:space="preserve">
+    <value>Код из 6 цифр</value>
+  </data>
+  <data name="AccessCode" xml:space="preserve">
+    <value>Код доступа Desktop</value>
+  </data>
+  <data name="LanNotice" xml:space="preserve">
+    <value>Для USB / LAN нужен код доступа. Управление и видео не зашифрованы; используйте доверенные устройства и сети.</value>
+  </data>
+  <data name="StartupShutdown" xml:space="preserve">
+    <value>Запуск и завершение</value>
+  </data>
+  <data name="AutoStart" xml:space="preserve">
+    <value>Запускать рабочую область вместе с Desktop</value>
+  </data>
+  <data name="CloseGameOnStop" xml:space="preserve">
+    <value>Закрывать Miside при остановке рабочей области</value>
+  </data>
+  <data name="SaveSettings" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="OpenLogs" xml:space="preserve">
+    <value>Открыть папку журнала</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Язык</value>
+  </data>
+  <data name="Chinese" xml:space="preserve">
+    <value>中文</value>
+  </data>
+  <data name="English" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="Russian" xml:space="preserve">
+    <value>Русский</value>
+  </data>
+  <data name="NotStarted" xml:space="preserve">
+    <value>Не запущено</value>
+  </data>
+  <data name="NotConnected" xml:space="preserve">
+    <value>Не подключено</value>
+  </data>
+  <data name="WaitingGame" xml:space="preserve">
+    <value>Ожидание игры</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>Выключено</value>
+  </data>
+  <data name="PauseAdapter" xml:space="preserve">
+    <value>Пауза</value>
+  </data>
+  <data name="EnableAdapter" xml:space="preserve">
+    <value>Включить</value>
+  </data>
+  <data name="StopStream" xml:space="preserve">
+    <value>Остановить</value>
+  </data>
+  <data name="StartStream" xml:space="preserve">
+    <value>Запустить поток</value>
+  </data>
+  <data name="StopWorkspace" xml:space="preserve">
+    <value>Остановить рабочую область</value>
+  </data>
+  <data name="StartWorkspace" xml:space="preserve">
+    <value>Запустить рабочую область</value>
+  </data>
+  <data name="SettingsSaved" xml:space="preserve">
+    <value>Настройки сохранены.</value>
+  </data>
+  <data name="WaitingPlugin" xml:space="preserve">
+    <value>Ожидание плагина</value>
+  </data>
+  <data name="Paused" xml:space="preserve">
+    <value>Приостановлено</value>
+  </data>
+  <data name="Connected" xml:space="preserve">
+    <value>Подключено</value>
+  </data>
+  <data name="CameraActive" xml:space="preserve">
+    <value>Под управлением</value>
+  </data>
+  <data name="TrackingPaused" xml:space="preserve">
+    <value>Трекинг приостановлен</value>
+  </data>
+  <data name="SceneChanging" xml:space="preserve">
+    <value>Смена сцены</value>
+  </data>
+  <data name="Released" xml:space="preserve">
+    <value>Освобождена</value>
+  </data>
+  <data name="WaitingPose" xml:space="preserve">
+    <value>Ожидание позы</value>
+  </data>
+  <data name="Stopped" xml:space="preserve">
+    <value>Остановлено</value>
+  </data>
+  <data name="AndroidPlaying" xml:space="preserve">
+    <value>Видео на Android</value>
+  </data>
+  <data name="Publishing" xml:space="preserve">
+    <value>Передача видео</value>
+  </data>
+  <data name="Recovering" xml:space="preserve">
+    <value>Восстановление</value>
+  </data>
+  <data name="TrackingValid" xml:space="preserve">
+    <value>Действителен</value>
+  </data>
+  <data name="TrackingHold" xml:space="preserve">
+    <value>Пауза</value>
+  </data>
+  <data name="LanDiscovery" xml:space="preserve">
+    <value>LAN · код доступа</value>
+  </data>
+  <data name="LocalEmulator" xml:space="preserve">
+    <value>Локальный эмулятор</value>
+  </data>
+  <data name="Playing" xml:space="preserve">
+    <value>Воспроизведение</value>
+  </data>
+  <data name="Buffering" xml:space="preserve">
+    <value>Буферизация</value>
+  </data>
+  <data name="Reconnecting" xml:space="preserve">
+    <value>Переподключение</value>
+  </data>
+  <data name="Connecting" xml:space="preserve">
+    <value>Подключение</value>
+  </data>
+  <data name="Starting" xml:space="preserve">
+    <value>Запуск</value>
+  </data>
+  <data name="WaitingHostPlugin" xml:space="preserve">
+    <value>Ожидание плагина игры</value>
+  </data>
+  <data name="WaitingVideoPlugin" xml:space="preserve">
+    <value>Ожидание видеоплагина</value>
+  </data>
+  <data name="WaitingAndroid" xml:space="preserve">
+    <value>Ожидание Android</value>
+  </data>
+  <data name="StartFailed" xml:space="preserve">
+    <value>Ошибка запуска</value>
+  </data>
+  <data name="Closing" xml:space="preserve">
+    <value>Остановка</value>
+  </data>
+  <data name="GameExited" xml:space="preserve">
+    <value>Игра завершена</value>
+  </data>
+  <data name="StreamRecovering" xml:space="preserve">
+    <value>Восстановление потока</value>
+  </data>
+  <data name="WaitingCamera" xml:space="preserve">
+    <value>Ожидание камеры</value>
+  </data>
+  <data name="Running" xml:space="preserve">
+    <value>Работает</value>
+  </data>
+  <data name="PrepareDesktopHost" xml:space="preserve">
+    <value>Сначала закройте Miside: Desktop должен установить интерфейс управления.</value>
+  </data>
+  <data name="CannotStartGame" xml:space="preserve">
+    <value>Не удалось запустить Miside.</value>
+  </data>
+  <data name="GameStarted" xml:space="preserve">
+    <value>Miside запущена · PID {0}</value>
+  </data>
+  <data name="WorkspaceReady" xml:space="preserve">
+    <value>Рабочая область готова: камера, поток и обнаружение включены.</value>
+  </data>
+  <data name="AdapterEnabled" xml:space="preserve">
+    <value>Адаптер камеры включён.</value>
+  </data>
+  <data name="AdapterPaused" xml:space="preserve">
+    <value>Адаптер приостановлен; исходная камера игры восстановлена.</value>
+  </data>
+  <data name="StreamEnabled" xml:space="preserve">
+    <value>Видеопоток включён.</value>
+  </data>
+  <data name="StreamStopped" xml:space="preserve">
+    <value>Видеопоток остановлен; камера и поза работают независимо.</value>
+  </data>
+  <data name="MediaRestarted" xml:space="preserve">
+    <value>Видеопоток перезапущен; соединение управления сохранено.</value>
+  </data>
+  <data name="GameExitPending" xml:space="preserve">
+    <value>Miside ещё работает. Сохраните и закройте игру перед выходом из Desktop.</value>
+  </data>
+  <data name="CleanupAfterExit" xml:space="preserve">
+    <value>Miside завершена; остановка видео и обнаружения.</value>
+  </data>
+  <data name="WorkspaceStopped" xml:space="preserve">
+    <value>Рабочая область остановлена; камера освобождена, видеопроцессы завершены.</value>
+  </data>
+  <data name="WaitHostTimeout" xml:space="preserve">
+    <value>Плагин не подтвердил изменение за {0:0.#} с. Проверьте журнал игры и плагина.</value>
+  </data>
+  <data name="StartWorkspaceFirst" xml:space="preserve">
+    <value>Сначала запустите рабочую область.</value>
+  </data>
+  <data name="PortOccupied" xml:space="preserve">
+    <value>Порт {0} занят. Остановите использующую его службу и повторите попытку; Desktop не завершает чужие процессы.</value>
+  </data>
+  <data name="RelayStartFailed" xml:space="preserve">
+    <value>Не удалось запустить MediaMTX.</value>
+  </data>
+  <data name="RelayExited" xml:space="preserve">
+    <value>MediaMTX завершён. Проверьте ошибки конфигурации или портов в журнале.</value>
+  </data>
+  <data name="RelayReady" xml:space="preserve">
+    <value>MediaMTX готов · PID {0}</value>
+  </data>
+  <data name="RelayNotReady" xml:space="preserve">
+    <value>MediaMTX не готов к работе.</value>
+  </data>
+  <data name="StopServicesAfterExit" xml:space="preserve">
+    <value>Miside завершена; остановка видео и обнаружения.</value>
+  </data>
+  <data name="MediaRecovered" xml:space="preserve">
+    <value>Видеосервис автоматически восстановлен.</value>
+  </data>
+  <data name="MediaRecoveryFailed" xml:space="preserve">
+    <value>Ошибка восстановления видео: {0}</value>
+  </data>
+  <data name="MissingAdapter" xml:space="preserve">
+    <value>В Desktop отсутствует {0}; используйте полный пакет.</value>
+  </data>
+  <data name="AdaptersDeployed" xml:space="preserve">
+    <value>Адаптеры установлены; файлы игры и interop не копировались.</value>
+  </data>
+  <data name="SelectGame" xml:space="preserve">
+    <value>Выберите исполняемый файл поддерживаемой игры.</value>
+  </data>
+  <data name="PrepareInterop" xml:space="preserve">
+    <value>Сначала подготовьте BepInEx IL2CPP bindings для этой версии игры.</value>
+  </data>
+  <data name="SelectFfmpeg" xml:space="preserve">
+    <value>Выберите отдельно установленный FFmpeg.</value>
+  </data>
+  <data name="SelectMediaMtx" xml:space="preserve">
+    <value>Выберите отдельно установленный MediaMTX.</value>
+  </data>
+  <data name="InvalidAccessCode" xml:space="preserve">
+    <value>Код доступа должен состоять из 6 цифр.</value>
+  </data>
+  <data name="HostClosed" xml:space="preserve">
+    <value>Соединение управления игрой закрыто.</value>
+  </data>
+  <data name="HostStateTooLarge" xml:space="preserve">
+    <value>Размер состояния игры превышает лимит.</value>
+  </data>
+  <data name="HostIncompatible" xml:space="preserve">
+    <value>Несовместимый протокол управления игрой.</value>
+  </data>
+  <data name="HostRejected" xml:space="preserve">
+    <value>Игра отклонила команду управления.</value>
+  </data>
+  <data name="HostInvalidState" xml:space="preserve">
+    <value>Игра вернула неверное состояние управления.</value>
+  </data>
+  <data name="FileFilter" xml:space="preserve">
+    <value>Программы Windows (*.exe)|*.exe</value>
+  </data>
+  <data name="UdpDiscoveryStopped" xml:space="preserve">
+    <value>Обнаружение остановлено: {0}</value>
+  </data>
+  <data name="TcpDiscoveryError" xml:space="preserve">
+    <value>Обнаружение TCP: {0}</value>
+  </data>
+  <data name="MediaLog" xml:space="preserve">
+    <value>MediaMTX · {0}</value>
+  </data>
+  <data name="ExternalMessage" xml:space="preserve">
+    <value>{0}</value>
+  </data>
+  <data name="Manual" xml:space="preserve">
+    <value>Ручной</value>
+  </data>
+  <data name="UsbMode" xml:space="preserve">
+    <value>USB-модем</value>
+  </data>
+  <data name="ConnectionMode" xml:space="preserve">
+    <value>Способ подключения</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>Обновить</value>
+  </data>
+  <data name="UsbWaiting" xml:space="preserve">
+    <value>USB-адаптер не найден. Включите USB-модем в настройках телефона.</value>
+  </data>
+  <data name="RestartForNetwork" xml:space="preserve">
+    <value>Закройте игру и перезапустите рабочую область, чтобы применить способ подключения или код доступа.</value>
+  </data>
+</root>

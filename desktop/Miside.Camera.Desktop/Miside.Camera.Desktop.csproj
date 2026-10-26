@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>Miside Camera Desktop</AssemblyName>
+    <RootNamespace>Miside.Camera.Desktop</RootNamespace>
+    <Version>0.2.0</Version>
+    <Product>Miside Camera Desktop</Product>
+    <Description>Windows workspace manager for Miside Camera</Description>
+    <Copyright>Copyright (c) 2026 Miside Camera contributors</Copyright>
+    <ApplicationIcon>..\..\assets\branding\windows\desktop.ico</ApplicationIcon>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <DebugType Condition="'$(Configuration)' == 'Release'">none</DebugType>
+    <SatelliteResourceLanguages>en;zh-CN;zh-Hans;ru</SatelliteResourceLanguages>
+    <AdapterDirectory Condition="'$(AdapterDirectory)' == ''">$(MSBuildThisFileDirectory)..\..\artifacts\adapters</AdapterDirectory>
+  </PropertyGroup>
+  <ItemGroup><Using Include="System.IO" /></ItemGroup>
+  <ItemGroup><InternalsVisibleTo Include="Miside.Camera.Desktop.Checks" /></ItemGroup>
+  <ItemGroup>
+    <Resource Include="..\..\assets\branding\windows\desktop.ico" Link="Assets\Desktop.ico" />
+    <Resource Include="..\..\assets\branding\windows\desktop-256.png" Link="Assets\Desktop.png" />
+    <Content Include="..\..\assets\branding\windows\desktop.ico" Link="Miside Camera Desktop.ico"
+             CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
+  <ItemGroup>
+    <AdapterBinary Include="Miside.Camera.Plugin.dll;Miside.Camera.Core.dll;Miside.Camera.NeuroMita.dll;Miside.Camera.Streaming.dll" />
+    <Content Include="@(AdapterBinary->'$(AdapterDirectory)\%(Identity)')"
+             Link="adapters\%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest"
+             CopyToPublishDirectory="PreserveNewest" Condition="Exists('$(AdapterDirectory)')" />
+  </ItemGroup>
+  <Target Name="ValidateAdapterBundle" BeforeTargets="Publish">
+    <Error Condition="!Exists('$(AdapterDirectory)\%(AdapterBinary.Identity)')"
+           Text="Missing %(AdapterBinary.Identity). Build the complete Desktop bundle with tools/build_desktop.ps1 and the matching HostDirectory." />
+  </Target>
+</Project>

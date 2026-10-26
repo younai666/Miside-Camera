@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <Using Include="System.IO" />
+    <ProjectReference Include="../Miside.Camera.Desktop/Miside.Camera.Desktop.csproj" />
+    <Compile Include="../../pc/Shared/LocalControlServer.cs" Link="LocalControlServer.cs" />
+    <Compile Include="../../pc/Miside.Camera.Core/PoseFrame.cs" Link="PoseFrame.cs" />
+    <Compile Include="../../pc/Miside.Camera.Core/PoseReceiver.cs" Link="PoseReceiver.cs" />
+  </ItemGroup>
+</Project>

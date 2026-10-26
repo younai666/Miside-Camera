@@ -1,0 +1,453 @@
+<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:local="clr-namespace:Miside.Camera.Desktop" xmlns:shell="clr-namespace:System.Windows.Shell;assembly=PresentationFramework" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Class="Miside.Camera.Desktop.MainWindow" Title="Miside Camera Desktop" Icon="Assets/Desktop.ico" Width="1200" Height="800" MinWidth="1000" MinHeight="660" Background="{StaticResource Black}" Foreground="{StaticResource White}" FontFamily="{StaticResource UiFont}" FontSize="13" Language="{Binding SelectedLanguage, ConverterCulture=en-US}" TextOptions.TextFormattingMode="Display" TextOptions.TextRenderingMode="Grayscale" TextOptions.TextHintingMode="Fixed" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="CanResize" UseLayoutRounding="True" SnapsToDevicePixels="True">
+  <shell:WindowChrome.WindowChrome>
+    <shell:WindowChrome CaptionHeight="40" ResizeBorderThickness="6" CornerRadius="0" GlassFrameThickness="0" UseAeroCaptionButtons="False" />
+  </shell:WindowChrome.WindowChrome>
+  <Window.InputBindings>
+    <KeyBinding Key="D1" Modifiers="Alt" Command="{Binding WorkspaceCommand}" />
+    <KeyBinding Key="D2" Modifiers="Alt" Command="{Binding AndroidCommand}" />
+    <KeyBinding Key="D3" Modifiers="Alt" Command="{Binding AdapterPageCommand}" />
+    <KeyBinding Key="D4" Modifiers="Alt" Command="{Binding VideoPageCommand}" />
+    <KeyBinding Key="D5" Modifiers="Alt" Command="{Binding PosePageCommand}" />
+    <KeyBinding Key="Return" Modifiers="Control" Command="{Binding StartCommand}" />
+    <KeyBinding Key="OemComma" Modifiers="Control" Command="{Binding SettingsCommand}" />
+    <KeyBinding Key="L" Modifiers="Control" Command="{Binding LogsCommand}" />
+  </Window.InputBindings>
+  <Border Background="{StaticResource Black}" BorderBrush="{StaticResource Outline}" BorderThickness="1">
+    <Grid>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="40" />
+        <RowDefinition Height="56" />
+        <RowDefinition Height="*" />
+        <RowDefinition Height="Auto" />
+      </Grid.RowDefinitions>
+      <Border BorderBrush="{StaticResource Outline}" BorderThickness="0,0,0,1">
+        <Grid>
+          <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="18,0">
+            <Image Source="Assets/Desktop.png" Width="20" Height="20" Stretch="Uniform" Margin="0,0,8,0" AutomationProperties.Name="{local:Loc DesktopIcon}"/>
+            <TextBlock Text="{local:Loc Brand}" Foreground="{StaticResource Pink}" FontWeight="SemiBold" VerticalAlignment="Center" />
+            <TextBlock Text="{local:Loc ProductPart}" Margin="8,0,0,0" VerticalAlignment="Center" />
+          </StackPanel>
+          <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" shell:WindowChrome.IsHitTestVisibleInChrome="True">
+            <Button Style="{StaticResource Chrome}" Content="−" Click="Minimize_Click" AutomationProperties.Name="{local:Loc Minimize}" />
+            <Button Style="{StaticResource Chrome}" Content="□" Click="Maximize_Click" AutomationProperties.Name="{local:Loc MaximizeRestore}" />
+            <Button Style="{StaticResource Chrome}" Content="×" Click="Close_Click" AutomationProperties.Name="{local:Loc CloseDesktop}" AutomationProperties.AutomationId="CloseDesktop" />
+          </StackPanel>
+        </Grid>
+      </Border>
+      <Border Grid.Row="1" BorderBrush="{StaticResource Outline}" BorderThickness="0,0,0,1" Padding="20,10">
+        <DockPanel>
+          <Button DockPanel.Dock="Right" Content="{Binding StartLabel}" Command="{Binding StartCommand}" Style="{StaticResource Primary}" MinWidth="122" AutomationProperties.AutomationId="StartWorkspace" ToolTip="{local:Loc WorkspaceShortcut}" />
+          <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+            <Border Style="{StaticResource Badge}" Margin="0,0,12,0">
+              <TextBlock Text="{Binding Status}" FontSize="12" AutomationProperties.AutomationId="WorkspaceStatus" />
+            </Border>
+            <TextBlock Text="{Binding Video}" Foreground="{StaticResource Muted}" VerticalAlignment="Center" Visibility="{Binding Running, Converter={StaticResource Visible}}" AutomationProperties.AutomationId="VideoStatus" />
+          </StackPanel>
+        </DockPanel>
+      </Border>
+      <Grid Grid.Row="2">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="174" />
+          <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Border BorderBrush="{StaticResource Outline}" BorderThickness="0,0,1,0">
+          <DockPanel Margin="0,16,0,8">
+            <StackPanel DockPanel.Dock="Bottom">
+              <RadioButton Content="{local:Loc Settings}" Tag="" Style="{StaticResource Navigation}" GroupName="Navigation" IsChecked="{Binding IsSettings, Mode=OneWay}" Command="{Binding SettingsCommand}" AutomationProperties.AutomationId="SettingsPage" />
+              <RadioButton Content="{local:Loc Logs}" Tag="" Style="{StaticResource Navigation}" GroupName="Navigation" IsChecked="{Binding IsLogs, Mode=OneWay}" Command="{Binding LogsCommand}" AutomationProperties.AutomationId="LogsPage" />
+              <TextBlock Text="v0.2.0" Foreground="{StaticResource Faint}" FontSize="12" Margin="22,18,0,6" />
+            </StackPanel>
+            <StackPanel>
+              <RadioButton Content="{local:Loc Workspace}" Tag="" Style="{StaticResource Navigation}" GroupName="Navigation" IsChecked="{Binding IsWorkspace, Mode=OneWay}" Command="{Binding WorkspaceCommand}" AutomationProperties.AutomationId="WorkspacePage" />
+              <RadioButton Content="{local:Loc AndroidConnection}" Tag="" Style="{StaticResource Navigation}" GroupName="Navigation" IsChecked="{Binding IsAndroid, Mode=OneWay}" Command="{Binding AndroidCommand}" AutomationProperties.AutomationId="AndroidPage" />
+              <RadioButton Content="{local:Loc CameraAdapter}" Tag="" Style="{StaticResource Navigation}" GroupName="Navigation" IsChecked="{Binding IsCamera, Mode=OneWay}" Command="{Binding AdapterPageCommand}" AutomationProperties.AutomationId="AdapterPage" />
+              <RadioButton Content="{local:Loc Stream}" Tag="" Style="{StaticResource Navigation}" GroupName="Navigation" IsChecked="{Binding IsVideo, Mode=OneWay}" Command="{Binding VideoPageCommand}" AutomationProperties.AutomationId="VideoPage" />
+              <RadioButton Content="{local:Loc PoseCamera}" Tag="" Style="{StaticResource Navigation}" GroupName="Navigation" IsChecked="{Binding IsPose, Mode=OneWay}" Command="{Binding PosePageCommand}" AutomationProperties.AutomationId="PosePage" />
+            </StackPanel>
+          </DockPanel>
+        </Border>
+        <Grid Grid.Column="1" Margin="24,0,24,20">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="64" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+          </Grid.RowDefinitions>
+          <DockPanel VerticalAlignment="Center">
+            <TextBlock Text="{Binding PageTitle}" FontSize="22" FontWeight="SemiBold" />
+          </DockPanel>
+          <Border Grid.Row="1" BorderBrush="{StaticResource Pink}" BorderThickness="2,0,0,0" Padding="12,10" Margin="0,0,0,16" Visibility="{Binding HasError, Converter={StaticResource Visible}}">
+            <TextBlock Text="{Binding Error}" Foreground="{StaticResource Pink}" AutomationProperties.AutomationId="ErrorMessage" />
+          </Border>
+          <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <Grid>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition>
+                  <ColumnDefinition.Style>
+                    <Style TargetType="ColumnDefinition">
+                      <Setter Property="Width" Value="20" />
+                      <Style.Triggers>
+                        <DataTrigger Binding="{Binding ShowInspector}" Value="False">
+                          <Setter Property="Width" Value="0" />
+                        </DataTrigger>
+                      </Style.Triggers>
+                    </Style>
+                  </ColumnDefinition.Style>
+                </ColumnDefinition>
+                <ColumnDefinition>
+                  <ColumnDefinition.Style>
+                    <Style TargetType="ColumnDefinition">
+                      <Setter Property="Width" Value="248" />
+                      <Style.Triggers>
+                        <DataTrigger Binding="{Binding ShowInspector}" Value="False">
+                          <Setter Property="Width" Value="0" />
+                        </DataTrigger>
+                      </Style.Triggers>
+                    </Style>
+                  </ColumnDefinition.Style>
+                </ColumnDefinition>
+              </Grid.ColumnDefinitions>
+              <StackPanel>
+                <StackPanel Visibility="{Binding IsWorkspace, Converter={StaticResource Visible}}">
+                  <Border Style="{StaticResource Panel}" Padding="20,20" Margin="0,0,0,16">
+                    <Grid>
+                      <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                      </Grid.RowDefinitions>
+                      <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="32" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="32" />
+                        <ColumnDefinition Width="*" />
+                      </Grid.ColumnDefinitions>
+                      <StackPanel Grid.Column="0">
+                        <TextBlock Text="" FontFamily="Segoe MDL2 Assets" FontSize="23" Foreground="{StaticResource Pink}" Margin="0,0,0,14" />
+                        <TextBlock Text="{local:Loc Android}" FontWeight="SemiBold" FontSize="15" />
+                        <TextBlock Text="{Binding Phone}" Foreground="{StaticResource Muted}" FontSize="12" Margin="0,6,0,0" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" />
+                      </StackPanel>
+                      <StackPanel Grid.Column="2">
+                        <TextBlock Text="" FontFamily="Segoe MDL2 Assets" FontSize="23" Foreground="{StaticResource Pink}" Margin="0,0,0,14" />
+                        <TextBlock Text="{local:Loc Desktop}" FontWeight="SemiBold" FontSize="15" />
+                        <TextBlock Text="{Binding Status}" Foreground="{StaticResource Muted}" FontSize="12" Margin="0,6,0,0" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" />
+                      </StackPanel>
+                      <StackPanel Grid.Column="4">
+                        <TextBlock Text="" FontFamily="Segoe MDL2 Assets" FontSize="23" Foreground="{StaticResource Pink}" Margin="0,0,0,14" />
+                        <TextBlock Text="{local:Loc Brand}" FontWeight="SemiBold" FontSize="15" />
+                        <TextBlock Text="{Binding Camera}" Foreground="{StaticResource Muted}" FontSize="12" Margin="0,6,0,0" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" />
+                      </StackPanel>
+                      <TextBlock Grid.Column="1" Text="↔" Foreground="{StaticResource Faint}" FontSize="19" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                      <TextBlock Grid.Column="3" Text="↔" Foreground="{StaticResource Faint}" FontSize="19" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                      <Border Grid.Row="1" Grid.ColumnSpan="5" BorderBrush="{StaticResource Outline}" BorderThickness="0,1,0,0"
+                              Margin="0,16,0,0" Padding="0,12,0,0" Visibility="{Binding Settings.NetworkEnabled, Converter={StaticResource Visible}}">
+                        <Grid Visibility="{Binding Settings.AccessCode, Converter={StaticResource DataVisible}}">
+                          <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                          </Grid.ColumnDefinitions>
+                          <TextBlock Text="{local:Loc SixDigitCode}" Foreground="{StaticResource Muted}" VerticalAlignment="Center" />
+                          <TextBlock Grid.Column="1" Text="{Binding Settings.AccessCode, Mode=OneWay}" Style="{StaticResource Numeric}"
+                                     Foreground="{StaticResource Pink}" FontSize="26" FontWeight="SemiBold" Margin="16,0,0,0"
+                                     AutomationProperties.AutomationId="WorkspaceAccessCode" AutomationProperties.Name="{local:Loc AccessCode}" />
+                        </Grid>
+                      </Border>
+                    </Grid>
+                  </Border>
+                  <Border Style="{StaticResource Panel}" Padding="0" Margin="0,0,0,16">
+                    <StackPanel>
+                      <Border BorderBrush="{StaticResource Outline}" BorderThickness="0,0,0,1" Padding="20,15">
+                        <Grid>
+                          <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                          </Grid.ColumnDefinitions>
+                          <StackPanel Grid.Column="1">
+                            <TextBlock Text="{local:Loc CameraAdapter}" FontWeight="SemiBold" />
+                            <StackPanel Orientation="Horizontal" Margin="0,7,0,0">
+                              <TextBlock Text="{Binding AdapterState}" Foreground="{StaticResource Muted}" FontSize="12" />
+                            </StackPanel>
+                          </StackPanel>
+                          <Button Grid.Column="2" Content="{Binding CameraAction}" Command="{Binding CameraCommand}" VerticalAlignment="Center" MinWidth="90" Margin="12,0,0,0" AutomationProperties.AutomationId="ToggleCamera" Visibility="{Binding Running, Converter={StaticResource Visible}}" />
+                        </Grid>
+                      </Border>
+                      <Border BorderBrush="{StaticResource Outline}" BorderThickness="0,0,0,1" Padding="20,15">
+                        <Grid>
+                          <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                          </Grid.ColumnDefinitions>
+                          <StackPanel Grid.Column="1">
+                            <TextBlock Text="{local:Loc GameCamera}" FontWeight="SemiBold" />
+                            <StackPanel Orientation="Horizontal" Margin="0,7,0,0">
+                              <TextBlock Text="{Binding Camera}" Foreground="{StaticResource Muted}" FontSize="12" />
+                              <TextBlock Text="{Binding Fov}" Foreground="{StaticResource Faint}" FontSize="12" Visibility="{Binding Fov, Converter={StaticResource DataVisible}}" Margin="12,0,0,0" />
+                            </StackPanel>
+                          </StackPanel>
+                          <Button Grid.Column="2" Content="{local:Loc Inspect}" Command="{Binding PosePageCommand}" VerticalAlignment="Center" MinWidth="90" Margin="12,0,0,0" AutomationProperties.AutomationId="InspectCamera" Visibility="{Binding Source, Converter={StaticResource DataVisible}}" />
+                        </Grid>
+                      </Border>
+                      <Border BorderBrush="{StaticResource Outline}" BorderThickness="0,0,0,1" Padding="20,15">
+                        <Grid>
+                          <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                          </Grid.ColumnDefinitions>
+                          <StackPanel Grid.Column="1">
+                            <TextBlock Text="{local:Loc Stream}" FontWeight="SemiBold" />
+                            <StackPanel Orientation="Horizontal" Margin="0,7,0,0">
+                              <TextBlock Text="{Binding Video}" Foreground="{StaticResource Muted}" FontSize="12" />
+                              <TextBlock Text="{Binding Resolution}" Foreground="{StaticResource Faint}" FontSize="12" Visibility="{Binding Resolution, Converter={StaticResource DataVisible}}" Margin="12,0,0,0" />
+                            </StackPanel>
+                          </StackPanel>
+                          <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
+                            <Button Content="{Binding VideoAction}" Command="{Binding VideoCommand}" MinWidth="90" Margin="12,0,0,0" AutomationProperties.AutomationId="ToggleVideo" Visibility="{Binding Running, Converter={StaticResource Visible}}" />
+                            <Button Content="{local:Loc Reconnect}" Command="{Binding RestartCommand}" Margin="6,0,0,0" AutomationProperties.Name="{local:Loc ReconnectStream}" Visibility="{Binding Running, Converter={StaticResource Visible}}" />
+                          </StackPanel>
+                        </Grid>
+                      </Border>
+                    </StackPanel>
+                  </Border>
+                  <Border Style="{StaticResource Panel}" Visibility="{Binding Fps, Converter={StaticResource DataVisible}}">
+                    <UniformGrid Columns="3">
+                      <StackPanel Visibility="{Binding Latency, Converter={StaticResource DataVisible}}">
+                        <TextBlock Text="{Binding Latency}" Style="{StaticResource Numeric}" FontSize="18" />
+                        <TextBlock Text="{local:Loc ControlRtt}" Style="{StaticResource MetricLabel}" />
+                      </StackPanel>
+                      <StackPanel Visibility="{Binding Fps, Converter={StaticResource DataVisible}}">
+                        <TextBlock Text="{Binding Fps}" Style="{StaticResource Numeric}" FontSize="18" />
+                        <TextBlock Text="{local:Loc CaptureFps}" Style="{StaticResource MetricLabel}" />
+                      </StackPanel>
+                      <StackPanel Visibility="{Binding ClientVideo, Converter={StaticResource DataVisible}}">
+                        <TextBlock Text="{Binding ClientVideo}" Style="{StaticResource Numeric}" FontSize="18" />
+                        <TextBlock Text="{local:Loc PlaybackState}" Style="{StaticResource MetricLabel}" />
+                      </StackPanel>
+                    </UniformGrid>
+                  </Border>
+                </StackPanel>
+                <Border Style="{StaticResource Panel}" Margin="0,0,0,16" Visibility="{Binding IsAndroid, Converter={StaticResource Visible}}">
+                  <StackPanel>
+                    <DockPanel Margin="0,0,0,12">
+                      <TextBlock Text="{local:Loc AndroidConnection}" Style="{StaticResource Section}" />
+                    </DockPanel>
+                    <local:InfoRow Caption="{local:Loc Device}" Value="{Binding Phone}" LabelWidth="108" />
+                    <local:InfoRow Caption="{local:Loc Peer}" Value="{Binding Peer}" LabelWidth="108" />
+                    <local:InfoRow Caption="{local:Loc InputSource}" Value="{Binding Source}" LabelWidth="108" />
+                    <local:InfoRow Caption="{local:Loc Tracking}" Value="{Binding Tracking}" LabelWidth="108" />
+                    <local:InfoRow Caption="{local:Loc ControlRtt}" Value="{Binding Latency}" LabelWidth="108" />
+                    <local:InfoRow Caption="{local:Loc Discovery}" Value="{Binding Discovery}" LabelWidth="108" />
+                  </StackPanel>
+                </Border>
+                <Border Style="{StaticResource Panel}" Margin="0,0,0,16" Visibility="{Binding IsCamera, Converter={StaticResource Visible}}">
+                  <StackPanel>
+                    <DockPanel Margin="0,0,0,12">
+                      <Button DockPanel.Dock="Right" Content="{Binding CameraAction}" Command="{Binding CameraCommand}" />
+                      <TextBlock Text="{local:Loc CameraAdapter}" Style="{StaticResource Section}" />
+                    </DockPanel>
+                    <local:InfoRow Caption="{local:Loc State}" Value="{Binding Camera}" LabelWidth="108" />
+                    <local:InfoRow Caption="{local:Loc GamePid}" Value="{Binding GamePid}" LabelWidth="108" />
+                    <local:InfoRow Caption="{local:Loc AppliedFrame}" Value="{Binding Sequence}" LabelWidth="108" />
+                  </StackPanel>
+                </Border>
+                <Border Style="{StaticResource Panel}" Margin="0,0,0,16" Visibility="{Binding IsCamera, Converter={StaticResource Visible}}">
+                  <StackPanel>
+                    <DockPanel Margin="0,0,0,12">
+                      <TextBlock Text="{local:Loc GameCamera}" Style="{StaticResource Section}" />
+                    </DockPanel>
+                    <local:InfoRow Caption="{local:Loc Scene}" Value="{Binding Scene}" LabelWidth="108" />
+                    <local:InfoRow Caption="{local:Loc Fov}" Value="{Binding Fov}" LabelWidth="108" />
+                    <local:InfoRow Caption="{local:Loc WorldX}" Value="{Binding WorldX}" LabelWidth="108" />
+                    <local:InfoRow Caption="{local:Loc WorldY}" Value="{Binding WorldY}" LabelWidth="108" />
+                    <local:InfoRow Caption="{local:Loc WorldZ}" Value="{Binding WorldZ}" LabelWidth="108" />
+                    <local:InfoRow Caption="{local:Loc Pitch}" Value="{Binding Pitch}" LabelWidth="108" />
+                    <local:InfoRow Caption="{local:Loc Yaw}" Value="{Binding Yaw}" LabelWidth="108" />
+                    <local:InfoRow Caption="{local:Loc Roll}" Value="{Binding Roll}" LabelWidth="108" />
+                  </StackPanel>
+                </Border>
+                <Border Style="{StaticResource Panel}" Margin="0,0,0,16" Visibility="{Binding IsVideo, Converter={StaticResource Visible}}">
+                  <StackPanel>
+                    <DockPanel Margin="0,0,0,12">
+                      <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                        <Button Content="{Binding VideoAction}" Command="{Binding VideoCommand}" />
+                        <Button Content="{local:Loc Reconnect}" Command="{Binding RestartCommand}" Margin="6,0,0,0" AutomationProperties.AutomationId="RestartMedia" />
+                      </StackPanel>
+                      <TextBlock Text="{local:Loc VideoLink}" Style="{StaticResource Section}" />
+                    </DockPanel>
+                    <local:InfoRow Caption="{local:Loc Stream}" Value="{Binding Video}" LabelWidth="108" />
+                    <local:InfoRow Caption="{local:Loc CaptureResolution}" Value="{Binding Resolution}" LabelWidth="108" />
+                    <local:InfoRow Caption="{local:Loc CaptureFps}" Value="{Binding Fps}" LabelWidth="108" />
+                    <local:InfoRow Caption="{local:Loc AndroidPlayback}" Value="{Binding ClientVideo}" LabelWidth="108" />
+                    <local:InfoRow Caption="{local:Loc AndroidResolution}" Value="{Binding ClientResolution}" LabelWidth="108" />
+                    <local:InfoRow Caption="{local:Loc PlaybackBuffer}" Value="{Binding Buffered}" LabelWidth="108" />
+                  </StackPanel>
+                </Border>
+                <Border Style="{StaticResource Panel}" Margin="0,0,0,16" Visibility="{Binding IsVideo, Converter={StaticResource Visible}}">
+                  <StackPanel>
+                    <DockPanel Margin="0,0,0,12">
+                      <TextBlock Text="{local:Loc EncodingTransport}" Style="{StaticResource Section}" />
+                    </DockPanel>
+                    <local:InfoRow Caption="{local:Loc EncoderPid}" Value="{Binding EncoderPid}" LabelWidth="108" />
+                    <local:InfoRow Caption="{local:Loc RelayPid}" Value="{Binding RelayPid}" LabelWidth="108" />
+                    <local:InfoRow Caption="{local:Loc Encoding}" Value="H.264 / NVENC P4 / CQ17" />
+                    <local:InfoRow Caption="{local:Loc Bitrate}" Value="{local:Loc BitrateValue}" />
+                    <local:InfoRow Caption="{local:Loc LastEncoderMessage}" Value="{Binding StreamError}" LabelWidth="108" />
+                  </StackPanel>
+                </Border>
+                <Border Style="{StaticResource Panel}" Margin="0,0,0,16" Visibility="{Binding IsPose, Converter={StaticResource Visible}}">
+                  <StackPanel>
+                    <DockPanel Margin="0,0,0,12">
+                      <TextBlock Text="{local:Loc InputPose}" Style="{StaticResource Section}" />
+                    </DockPanel>
+                    <TextBlock Text="{Binding Phone}" Foreground="{StaticResource Muted}" Visibility="{Binding Source, Converter={StaticResource DataVisible}, ConverterParameter=inverse}" />
+                    <local:InfoRow Caption="{local:Loc InputSource}" Value="{Binding Source}" LabelWidth="108" />
+                    <local:InfoRow Caption="{local:Loc Tracking}" Value="{Binding Tracking}" LabelWidth="108" />
+                    <local:InfoRow Caption="{local:Loc AppliedFrame}" Value="{Binding Sequence}" LabelWidth="108" />
+                    <local:InfoRow Caption="{local:Loc InputX}" Value="{Binding InputX}" LabelWidth="108" />
+                    <local:InfoRow Caption="{local:Loc InputY}" Value="{Binding InputY}" LabelWidth="108" />
+                    <local:InfoRow Caption="{local:Loc InputZ}" Value="{Binding InputZ}" LabelWidth="108" />
+                    <local:InfoRow Caption="{local:Loc Quaternion}" Value="{Binding Quaternion}" LabelWidth="108" />
+                  </StackPanel>
+                </Border>
+                <Border Style="{StaticResource Panel}" Margin="0,0,0,16" Visibility="{Binding IsPose, Converter={StaticResource Visible}}">
+                  <StackPanel>
+                    <DockPanel Margin="0,0,0,12">
+                      <TextBlock Text="{local:Loc GameCamera}" Style="{StaticResource Section}" />
+                    </DockPanel>
+                    <local:InfoRow Caption="{local:Loc State}" Value="{Binding Camera}" LabelWidth="108" />
+                    <local:InfoRow Caption="{local:Loc Scene}" Value="{Binding Scene}" LabelWidth="108" />
+                    <local:InfoRow Caption="{local:Loc InputX}" Value="{Binding WorldX}" LabelWidth="108" />
+                    <local:InfoRow Caption="{local:Loc InputY}" Value="{Binding WorldY}" LabelWidth="108" />
+                    <local:InfoRow Caption="{local:Loc InputZ}" Value="{Binding WorldZ}" LabelWidth="108" />
+                    <local:InfoRow Caption="{local:Loc Pitch}" Value="{Binding Pitch}" LabelWidth="108" />
+                    <local:InfoRow Caption="{local:Loc Yaw}" Value="{Binding Yaw}" LabelWidth="108" />
+                    <local:InfoRow Caption="{local:Loc Roll}" Value="{Binding Roll}" LabelWidth="108" />
+                    <local:InfoRow Caption="{local:Loc Fov}" Value="{Binding Fov}" LabelWidth="108" />
+                    <local:InfoRow Caption="{local:Loc Quaternion}" Value="{Binding WorldQuaternion}" LabelWidth="108" />
+                  </StackPanel>
+                </Border>
+                <StackPanel Visibility="{Binding IsSettings, Converter={StaticResource Visible}}">
+                  <Grid Margin="0,0,0,20">
+                    <Grid.ColumnDefinitions>
+                      <ColumnDefinition Width="136" />
+                      <ColumnDefinition Width="220" />
+                      <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="{local:Loc Language}" Style="{StaticResource Label}" />
+                    <ComboBox Grid.Column="1" ItemsSource="{Binding Languages}" SelectedValuePath="Code"
+                              SelectedValue="{Binding SelectedLanguage, UpdateSourceTrigger=PropertyChanged}"
+                              IsEnabled="{Binding CanChooseLanguage}" AutomationProperties.AutomationId="DesktopLanguage" AutomationProperties.Name="{local:Loc Language}">
+                      <ComboBox.ItemTemplate><DataTemplate><TextBlock Text="{Binding Name}" /></DataTemplate></ComboBox.ItemTemplate>
+                    </ComboBox>
+                  </Grid>
+                  <StackPanel IsEnabled="{Binding CanEdit}">
+                    <TextBlock Text="{local:Loc Programs}" Style="{StaticResource Section}" Margin="0,0,0,18" />
+                    <Grid Margin="0,0,0,14">
+                      <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="136" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                      </Grid.ColumnDefinitions>
+                      <TextBlock Text="{local:Loc Brand}" Style="{StaticResource Label}" />
+                      <TextBox Grid.Column="1" Text="{Binding Settings.GamePath, UpdateSourceTrigger=PropertyChanged}" AutomationProperties.Name="{local:Loc GamePath}" AutomationProperties.AutomationId="GamePath" />
+                      <Button Grid.Column="2" Content="{local:Loc Browse}" Tag="GamePath" Click="Browse_Click" Margin="6,0,0,0" />
+                    </Grid>
+                    <Grid Margin="0,0,0,14">
+                      <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="136" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                      </Grid.ColumnDefinitions>
+                      <TextBlock Text="{local:Loc FfmpegLabel}" Style="{StaticResource Label}" />
+                      <TextBox Grid.Column="1" Text="{Binding Settings.FfmpegPath, UpdateSourceTrigger=PropertyChanged}" AutomationProperties.Name="{local:Loc FfmpegPath}" AutomationProperties.AutomationId="FfmpegPath" />
+                      <Button Grid.Column="2" Content="{local:Loc Browse}" Tag="FfmpegPath" Click="Browse_Click" Margin="6,0,0,0" />
+                    </Grid>
+                    <Grid Margin="0,0,0,14">
+                      <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="136" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                      </Grid.ColumnDefinitions>
+                      <TextBlock Text="{local:Loc MediaMtxLabel}" Style="{StaticResource Label}" />
+                      <TextBox Grid.Column="1" Text="{Binding Settings.MediaMtxPath, UpdateSourceTrigger=PropertyChanged}" AutomationProperties.Name="{local:Loc MediaMtxPath}" AutomationProperties.AutomationId="MediaMtxPath" />
+                      <Button Grid.Column="2" Content="{local:Loc Browse}" Tag="MediaMtxPath" Click="Browse_Click" Margin="6,0,0,0" />
+                    </Grid>
+                    <Border Height="1" Background="{StaticResource Outline}" Margin="0,8,0,18" />
+                    <TextBlock Text="{local:Loc Connection}" Style="{StaticResource Section}" Margin="0,0,0,10" />
+                    <Grid Margin="0,0,0,8">
+                      <Grid.ColumnDefinitions><ColumnDefinition Width="136" /><ColumnDefinition Width="240" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
+                      <TextBlock Text="{local:Loc ConnectionMode}" Style="{StaticResource Label}" />
+                      <ComboBox Grid.Column="1" ItemsSource="{Binding ConnectionModes}" SelectedValuePath="Code"
+                                SelectedValue="{Binding Settings.ConnectionMode, UpdateSourceTrigger=PropertyChanged}"
+                                AutomationProperties.Name="{local:Loc ConnectionMode}" AutomationProperties.AutomationId="ConnectionMode">
+                        <ComboBox.ItemTemplate><DataTemplate><TextBlock Text="{Binding Name}" /></DataTemplate></ComboBox.ItemTemplate>
+                      </ComboBox>
+                    </Grid>
+                    <DockPanel Margin="0,4,0,12" Visibility="{Binding Settings.UsbEnabled, Converter={StaticResource Visible}}">
+                      <Button DockPanel.Dock="Right" Content="{local:Loc Refresh}" Command="{Binding RefreshUsbCommand}" Margin="12,0,0,0" />
+                      <TextBlock Text="{Binding UsbConnectionInfo}" Foreground="{StaticResource Muted}" FontSize="12" VerticalAlignment="Center" />
+                    </DockPanel>
+                    <Grid Margin="28,6,0,12">
+                      <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="108" />
+                        <ColumnDefinition Width="150" />
+                        <ColumnDefinition Width="*" />
+                      </Grid.ColumnDefinitions>
+                      <TextBlock Text="{local:Loc SixDigitCode}" Style="{StaticResource Label}" />
+                      <TextBox Grid.Column="1" Text="{Binding Settings.AccessCode, UpdateSourceTrigger=PropertyChanged}" MaxLength="6" AutomationProperties.AutomationId="AccessCode" AutomationProperties.Name="{local:Loc AccessCode}" />
+                    </Grid>
+                    <TextBlock Text="{local:Loc LanNotice}" Foreground="{StaticResource Muted}" FontSize="12" Margin="28,0,0,18" Visibility="{Binding Settings.NetworkEnabled, Converter={StaticResource Visible}}" />
+                    <Border Height="1" Background="{StaticResource Outline}" Margin="0,0,0,18" />
+                    <TextBlock Text="{local:Loc StartupShutdown}" Style="{StaticResource Section}" Margin="0,0,0,10" />
+                    <CheckBox Content="{local:Loc AutoStart}" IsChecked="{Binding Settings.AutoStart}" />
+                    <CheckBox Content="{local:Loc CloseGameOnStop}" IsChecked="{Binding Settings.CloseGameOnStop}" />
+                  </StackPanel>
+                  <Button Content="{local:Loc SaveSettings}" Command="{Binding SaveCommand}" Style="{StaticResource Primary}" HorizontalAlignment="Left" Margin="0,20,0,0" AutomationProperties.AutomationId="SaveSettings" />
+                </StackPanel>
+                <StackPanel Visibility="{Binding IsLogs, Converter={StaticResource Visible}}">
+                  <Button Content="{local:Loc OpenLogs}" Command="{Binding OpenLogsCommand}" HorizontalAlignment="Left" Margin="0,0,0,16" />
+                  <ListBox ItemsSource="{Binding Logs}" FontFamily="{StaticResource MonoFont}" FontSize="12" MaxHeight="900">
+                    <ListBox.ItemTemplate>
+                      <DataTemplate>
+                        <TextBlock Text="{Binding Text}" TextWrapping="Wrap" />
+                      </DataTemplate>
+                    </ListBox.ItemTemplate>
+                  </ListBox>
+                </StackPanel>
+              </StackPanel>
+              <Border Style="{StaticResource Panel}" Grid.Column="2" Padding="18,18" VerticalAlignment="Top" Visibility="{Binding ShowInspector, Converter={StaticResource Visible}}">
+                <StackPanel>
+                  <DockPanel Margin="0,0,0,18">
+                    <TextBlock DockPanel.Dock="Right" Text="{Binding Source}" Foreground="{StaticResource Pink}" FontSize="12" Visibility="{Binding Source, Converter={StaticResource DataVisible}}" />
+                    <TextBlock Text="{local:Loc PoseCamera}" FontWeight="SemiBold" />
+                  </DockPanel>
+                  <TextBlock Text="{Binding Phone}" Foreground="{StaticResource Muted}" Visibility="{Binding Source, Converter={StaticResource DataVisible}, ConverterParameter=inverse}" />
+                  <TextBlock Text="{local:Loc InputPosition}" Style="{StaticResource Label}" Margin="0,0,0,8" Visibility="{Binding InputX, Converter={StaticResource DataVisible}}" />
+                  <local:InfoRow Caption="X" Value="{Binding InputX}" LabelWidth="80" />
+                  <local:InfoRow Caption="Y" Value="{Binding InputY}" LabelWidth="80" />
+                  <local:InfoRow Caption="Z" Value="{Binding InputZ}" LabelWidth="80" />
+                  <Border Style="{StaticResource Rule}" Margin="0,20" Visibility="{Binding WorldX, Converter={StaticResource DataVisible}}" />
+                  <TextBlock Text="{local:Loc GameCamera}" Style="{StaticResource Section}" Margin="0,0,0,10" Visibility="{Binding WorldX, Converter={StaticResource DataVisible}}" />
+                  <local:InfoRow Caption="{local:Loc InputX}" Value="{Binding WorldX}" LabelWidth="80" />
+                  <local:InfoRow Caption="{local:Loc InputY}" Value="{Binding WorldY}" LabelWidth="80" />
+                  <local:InfoRow Caption="{local:Loc InputZ}" Value="{Binding WorldZ}" LabelWidth="80" />
+                  <local:InfoRow Caption="{local:Loc Pitch}" Value="{Binding Pitch}" LabelWidth="80" />
+                  <local:InfoRow Caption="{local:Loc Yaw}" Value="{Binding Yaw}" LabelWidth="80" />
+                  <local:InfoRow Caption="{local:Loc Roll}" Value="{Binding Roll}" LabelWidth="80" />
+                  <local:InfoRow Caption="{local:Loc Fov}" Value="{Binding Fov}" LabelWidth="80" />
+                  <Border Style="{StaticResource Rule}" Margin="0,16" Visibility="{Binding WorldX, Converter={StaticResource DataVisible}}" />
+                  <local:InfoRow Caption="{local:Loc Scene}" Value="{Binding Scene}" LabelWidth="80" />
+                </StackPanel>
+              </Border>
+            </Grid>
+          </ScrollViewer>
+        </Grid>
+      </Grid>
+      <Border Grid.Row="3" MinHeight="28" Padding="20,0" BorderBrush="{StaticResource Outline}" BorderThickness="0,1,0,0" Visibility="{Binding Busy, Converter={StaticResource Visible}}">
+        <TextBlock Text="{Binding Status}" Foreground="{StaticResource Muted}" FontSize="12" VerticalAlignment="Center" />
+      </Border>
+    </Grid>
+  </Border>
+</Window>

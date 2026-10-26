@@ -1,0 +1,504 @@
+<?xml version='1.0' encoding='utf-8'?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <data name="Workspace" xml:space="preserve">
+    <value>Workspace</value>
+  </data>
+  <data name="AndroidConnection" xml:space="preserve">
+    <value>Android connection</value>
+  </data>
+  <data name="CameraAdapter" xml:space="preserve">
+    <value>Camera Adapter</value>
+  </data>
+  <data name="VideoPage" xml:space="preserve">
+    <value>Stream status</value>
+  </data>
+  <data name="Stream" xml:space="preserve">
+    <value>Stream</value>
+  </data>
+  <data name="PoseCamera" xml:space="preserve">
+    <value>Pose / Camera</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="Logs" xml:space="preserve">
+    <value>Logs</value>
+  </data>
+  <data name="Brand" xml:space="preserve">
+    <value>Miside</value>
+  </data>
+  <data name="Desktop" xml:space="preserve">
+    <value>Desktop</value>
+  </data>
+  <data name="Android" xml:space="preserve">
+    <value>Android</value>
+  </data>
+  <data name="ProductPart" xml:space="preserve">
+    <value>Camera Desktop</value>
+  </data>
+  <data name="DesktopIcon" xml:space="preserve">
+    <value>Miside Camera Desktop icon</value>
+  </data>
+  <data name="Minimize" xml:space="preserve">
+    <value>Minimize</value>
+  </data>
+  <data name="MaximizeRestore" xml:space="preserve">
+    <value>Maximize or restore</value>
+  </data>
+  <data name="CloseDesktop" xml:space="preserve">
+    <value>Close Desktop</value>
+  </data>
+  <data name="WorkspaceShortcut" xml:space="preserve">
+    <value>Start or stop workspace · Ctrl+Enter</value>
+  </data>
+  <data name="Inspect" xml:space="preserve">
+    <value>Inspect</value>
+  </data>
+  <data name="Reconnect" xml:space="preserve">
+    <value>Reconnect</value>
+  </data>
+  <data name="ReconnectStream" xml:space="preserve">
+    <value>Reconnect stream</value>
+  </data>
+  <data name="GameCamera" xml:space="preserve">
+    <value>Game camera</value>
+  </data>
+  <data name="ControlRtt" xml:space="preserve">
+    <value>Control RTT</value>
+  </data>
+  <data name="CaptureFps" xml:space="preserve">
+    <value>Capture FPS</value>
+  </data>
+  <data name="PlaybackState" xml:space="preserve">
+    <value>Playback</value>
+  </data>
+  <data name="Device" xml:space="preserve">
+    <value>Device</value>
+  </data>
+  <data name="Peer" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="InputSource" xml:space="preserve">
+    <value>Input source</value>
+  </data>
+  <data name="Tracking" xml:space="preserve">
+    <value>Tracking</value>
+  </data>
+  <data name="Discovery" xml:space="preserve">
+    <value>Discovery</value>
+  </data>
+  <data name="State" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="GamePid" xml:space="preserve">
+    <value>Miside PID</value>
+  </data>
+  <data name="AppliedFrame" xml:space="preserve">
+    <value>Applied frame</value>
+  </data>
+  <data name="Scene" xml:space="preserve">
+    <value>Scene</value>
+  </data>
+  <data name="Fov" xml:space="preserve">
+    <value>FOV</value>
+  </data>
+  <data name="WorldX" xml:space="preserve">
+    <value>World X · m</value>
+  </data>
+  <data name="WorldY" xml:space="preserve">
+    <value>World Y · m</value>
+  </data>
+  <data name="WorldZ" xml:space="preserve">
+    <value>World Z · m</value>
+  </data>
+  <data name="Pitch" xml:space="preserve">
+    <value>Pitch</value>
+  </data>
+  <data name="Yaw" xml:space="preserve">
+    <value>Yaw</value>
+  </data>
+  <data name="Roll" xml:space="preserve">
+    <value>Roll</value>
+  </data>
+  <data name="VideoLink" xml:space="preserve">
+    <value>Video link</value>
+  </data>
+  <data name="CaptureResolution" xml:space="preserve">
+    <value>Capture size</value>
+  </data>
+  <data name="AndroidPlayback" xml:space="preserve">
+    <value>Android playback</value>
+  </data>
+  <data name="AndroidResolution" xml:space="preserve">
+    <value>Android size</value>
+  </data>
+  <data name="PlaybackBuffer" xml:space="preserve">
+    <value>Buffer</value>
+  </data>
+  <data name="EncodingTransport" xml:space="preserve">
+    <value>Encoding and transport</value>
+  </data>
+  <data name="EncoderPid" xml:space="preserve">
+    <value>NVENC PID</value>
+  </data>
+  <data name="RelayPid" xml:space="preserve">
+    <value>MediaMTX PID</value>
+  </data>
+  <data name="Encoding" xml:space="preserve">
+    <value>Encoding</value>
+  </data>
+  <data name="Bitrate" xml:space="preserve">
+    <value>Bitrate</value>
+  </data>
+  <data name="BitrateValue" xml:space="preserve">
+    <value>VBR 20 / max 30 Mbps</value>
+  </data>
+  <data name="LastEncoderMessage" xml:space="preserve">
+    <value>Encoder message</value>
+  </data>
+  <data name="InputPose" xml:space="preserve">
+    <value>Input pose</value>
+  </data>
+  <data name="InputX" xml:space="preserve">
+    <value>X · m</value>
+  </data>
+  <data name="InputY" xml:space="preserve">
+    <value>Y · m</value>
+  </data>
+  <data name="InputZ" xml:space="preserve">
+    <value>Z · m</value>
+  </data>
+  <data name="Quaternion" xml:space="preserve">
+    <value>Q · XYZW</value>
+  </data>
+  <data name="InputPosition" xml:space="preserve">
+    <value>Input position · m</value>
+  </data>
+  <data name="Programs" xml:space="preserve">
+    <value>Applications</value>
+  </data>
+  <data name="GamePath" xml:space="preserve">
+    <value>Miside path</value>
+  </data>
+  <data name="FfmpegLabel" xml:space="preserve">
+    <value>FFmpeg / NVENC</value>
+  </data>
+  <data name="FfmpegPath" xml:space="preserve">
+    <value>FFmpeg / NVENC path</value>
+  </data>
+  <data name="MediaMtxLabel" xml:space="preserve">
+    <value>MediaMTX</value>
+  </data>
+  <data name="MediaMtxPath" xml:space="preserve">
+    <value>MediaMTX path</value>
+  </data>
+  <data name="Browse" xml:space="preserve">
+    <value>Browse…</value>
+  </data>
+  <data name="Connection" xml:space="preserve">
+    <value>Connection</value>
+  </data>
+  <data name="LanConnection" xml:space="preserve">
+    <value>Phone connection over LAN</value>
+  </data>
+  <data name="SixDigitCode" xml:space="preserve">
+    <value>Six-digit code</value>
+  </data>
+  <data name="AccessCode" xml:space="preserve">
+    <value>Desktop access code</value>
+  </data>
+  <data name="LanNotice" xml:space="preserve">
+    <value>USB / LAN connections require the access code. Control and video are unencrypted; use trusted devices and networks.</value>
+  </data>
+  <data name="StartupShutdown" xml:space="preserve">
+    <value>Startup and shutdown</value>
+  </data>
+  <data name="AutoStart" xml:space="preserve">
+    <value>Start workspace when Desktop opens</value>
+  </data>
+  <data name="CloseGameOnStop" xml:space="preserve">
+    <value>Exit Miside when workspace stops</value>
+  </data>
+  <data name="SaveSettings" xml:space="preserve">
+    <value>Save settings</value>
+  </data>
+  <data name="OpenLogs" xml:space="preserve">
+    <value>Open log folder</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="Chinese" xml:space="preserve">
+    <value>中文</value>
+  </data>
+  <data name="English" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="Russian" xml:space="preserve">
+    <value>Русский</value>
+  </data>
+  <data name="NotStarted" xml:space="preserve">
+    <value>Not started</value>
+  </data>
+  <data name="NotConnected" xml:space="preserve">
+    <value>Not connected</value>
+  </data>
+  <data name="WaitingGame" xml:space="preserve">
+    <value>Waiting for game</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>Off</value>
+  </data>
+  <data name="PauseAdapter" xml:space="preserve">
+    <value>Pause adapter</value>
+  </data>
+  <data name="EnableAdapter" xml:space="preserve">
+    <value>Enable adapter</value>
+  </data>
+  <data name="StopStream" xml:space="preserve">
+    <value>Stop stream</value>
+  </data>
+  <data name="StartStream" xml:space="preserve">
+    <value>Start stream</value>
+  </data>
+  <data name="StopWorkspace" xml:space="preserve">
+    <value>Stop workspace</value>
+  </data>
+  <data name="StartWorkspace" xml:space="preserve">
+    <value>Start workspace</value>
+  </data>
+  <data name="SettingsSaved" xml:space="preserve">
+    <value>Settings saved.</value>
+  </data>
+  <data name="WaitingPlugin" xml:space="preserve">
+    <value>Waiting for plugin</value>
+  </data>
+  <data name="Paused" xml:space="preserve">
+    <value>Paused</value>
+  </data>
+  <data name="Connected" xml:space="preserve">
+    <value>Connected</value>
+  </data>
+  <data name="CameraActive" xml:space="preserve">
+    <value>Controlled</value>
+  </data>
+  <data name="TrackingPaused" xml:space="preserve">
+    <value>Tracking paused</value>
+  </data>
+  <data name="SceneChanging" xml:space="preserve">
+    <value>Changing scene</value>
+  </data>
+  <data name="Released" xml:space="preserve">
+    <value>Released</value>
+  </data>
+  <data name="WaitingPose" xml:space="preserve">
+    <value>Waiting for pose</value>
+  </data>
+  <data name="Stopped" xml:space="preserve">
+    <value>Stopped</value>
+  </data>
+  <data name="AndroidPlaying" xml:space="preserve">
+    <value>Playing on Android</value>
+  </data>
+  <data name="Publishing" xml:space="preserve">
+    <value>Publishing</value>
+  </data>
+  <data name="Recovering" xml:space="preserve">
+    <value>Recovering</value>
+  </data>
+  <data name="TrackingValid" xml:space="preserve">
+    <value>Valid</value>
+  </data>
+  <data name="TrackingHold" xml:space="preserve">
+    <value>Paused</value>
+  </data>
+  <data name="LanDiscovery" xml:space="preserve">
+    <value>LAN · access code</value>
+  </data>
+  <data name="LocalEmulator" xml:space="preserve">
+    <value>Local emulator</value>
+  </data>
+  <data name="Playing" xml:space="preserve">
+    <value>Playing</value>
+  </data>
+  <data name="Buffering" xml:space="preserve">
+    <value>Buffering</value>
+  </data>
+  <data name="Reconnecting" xml:space="preserve">
+    <value>Reconnecting</value>
+  </data>
+  <data name="Connecting" xml:space="preserve">
+    <value>Connecting</value>
+  </data>
+  <data name="Starting" xml:space="preserve">
+    <value>Starting</value>
+  </data>
+  <data name="WaitingHostPlugin" xml:space="preserve">
+    <value>Waiting for game plugin</value>
+  </data>
+  <data name="WaitingVideoPlugin" xml:space="preserve">
+    <value>Waiting for video plugin</value>
+  </data>
+  <data name="WaitingAndroid" xml:space="preserve">
+    <value>Waiting for Android</value>
+  </data>
+  <data name="StartFailed" xml:space="preserve">
+    <value>Start failed</value>
+  </data>
+  <data name="Closing" xml:space="preserve">
+    <value>Stopping</value>
+  </data>
+  <data name="GameExited" xml:space="preserve">
+    <value>Game exited</value>
+  </data>
+  <data name="StreamRecovering" xml:space="preserve">
+    <value>Recovering stream</value>
+  </data>
+  <data name="WaitingCamera" xml:space="preserve">
+    <value>Waiting for camera</value>
+  </data>
+  <data name="Running" xml:space="preserve">
+    <value>Running</value>
+  </data>
+  <data name="PrepareDesktopHost" xml:space="preserve">
+    <value>Close the running Miside first; Desktop needs to deploy its management interface.</value>
+  </data>
+  <data name="CannotStartGame" xml:space="preserve">
+    <value>Cannot start Miside.</value>
+  </data>
+  <data name="GameStarted" xml:space="preserve">
+    <value>Miside started · PID {0}</value>
+  </data>
+  <data name="WorkspaceReady" xml:space="preserve">
+    <value>Workspace ready; camera, streaming and discovery are enabled.</value>
+  </data>
+  <data name="AdapterEnabled" xml:space="preserve">
+    <value>Camera Adapter enabled.</value>
+  </data>
+  <data name="AdapterPaused" xml:space="preserve">
+    <value>Camera Adapter paused; original game camera restored.</value>
+  </data>
+  <data name="StreamEnabled" xml:space="preserve">
+    <value>Stream enabled.</value>
+  </data>
+  <data name="StreamStopped" xml:space="preserve">
+    <value>Stream stopped; camera and pose remain active.</value>
+  </data>
+  <data name="MediaRestarted" xml:space="preserve">
+    <value>Media restarted; pose connection retained.</value>
+  </data>
+  <data name="GameExitPending" xml:space="preserve">
+    <value>Miside has not exited. Save and close the game before exiting Desktop.</value>
+  </data>
+  <data name="CleanupAfterExit" xml:space="preserve">
+    <value>Miside exited; cleaning up media and discovery.</value>
+  </data>
+  <data name="WorkspaceStopped" xml:space="preserve">
+    <value>Workspace stopped; camera released and media processes stopped.</value>
+  </data>
+  <data name="WaitHostTimeout" xml:space="preserve">
+    <value>Game plugin did not confirm the change within {0:0.#} seconds. Check game and plugin logs.</value>
+  </data>
+  <data name="StartWorkspaceFirst" xml:space="preserve">
+    <value>Start the workspace first.</value>
+  </data>
+  <data name="PortOccupied" xml:space="preserve">
+    <value>Port {0} is in use. Stop the existing service and retry; Desktop will not terminate external processes.</value>
+  </data>
+  <data name="RelayStartFailed" xml:space="preserve">
+    <value>MediaMTX could not start.</value>
+  </data>
+  <data name="RelayExited" xml:space="preserve">
+    <value>MediaMTX exited. Check logs for configuration or port errors.</value>
+  </data>
+  <data name="RelayReady" xml:space="preserve">
+    <value>MediaMTX ready · PID {0}</value>
+  </data>
+  <data name="RelayNotReady" xml:space="preserve">
+    <value>MediaMTX did not become ready.</value>
+  </data>
+  <data name="StopServicesAfterExit" xml:space="preserve">
+    <value>Miside exited; stopping media and discovery.</value>
+  </data>
+  <data name="MediaRecovered" xml:space="preserve">
+    <value>Media service recovered automatically.</value>
+  </data>
+  <data name="MediaRecoveryFailed" xml:space="preserve">
+    <value>Media recovery failed: {0}</value>
+  </data>
+  <data name="MissingAdapter" xml:space="preserve">
+    <value>Desktop is missing {0}; use the complete package.</value>
+  </data>
+  <data name="AdaptersDeployed" xml:space="preserve">
+    <value>Adapters deployed; host and interop files were not copied.</value>
+  </data>
+  <data name="SelectGame" xml:space="preserve">
+    <value>Select the supported game's executable.</value>
+  </data>
+  <data name="PrepareInterop" xml:space="preserve">
+    <value>Prepare the matching BepInEx IL2CPP bindings for this game build first.</value>
+  </data>
+  <data name="SelectFfmpeg" xml:space="preserve">
+    <value>Select a separately installed FFmpeg.</value>
+  </data>
+  <data name="SelectMediaMtx" xml:space="preserve">
+    <value>Select a separately installed MediaMTX.</value>
+  </data>
+  <data name="InvalidAccessCode" xml:space="preserve">
+    <value>The access code must contain six digits.</value>
+  </data>
+  <data name="HostClosed" xml:space="preserve">
+    <value>Game management connection closed.</value>
+  </data>
+  <data name="HostStateTooLarge" xml:space="preserve">
+    <value>Game status exceeds the size limit.</value>
+  </data>
+  <data name="HostIncompatible" xml:space="preserve">
+    <value>Incompatible game management protocol.</value>
+  </data>
+  <data name="HostRejected" xml:space="preserve">
+    <value>Game rejected the management command.</value>
+  </data>
+  <data name="HostInvalidState" xml:space="preserve">
+    <value>Game returned invalid management state.</value>
+  </data>
+  <data name="FileFilter" xml:space="preserve">
+    <value>Windows applications (*.exe)|*.exe</value>
+  </data>
+  <data name="UdpDiscoveryStopped" xml:space="preserve">
+    <value>Discovery stopped: {0}</value>
+  </data>
+  <data name="TcpDiscoveryError" xml:space="preserve">
+    <value>TCP discovery: {0}</value>
+  </data>
+  <data name="MediaLog" xml:space="preserve">
+    <value>MediaMTX · {0}</value>
+  </data>
+  <data name="ExternalMessage" xml:space="preserve">
+    <value>{0}</value>
+  </data>
+  <data name="Manual" xml:space="preserve">
+    <value>Manual</value>
+  </data>
+  <data name="UsbMode" xml:space="preserve">
+    <value>USB tethering</value>
+  </data>
+  <data name="ConnectionMode" xml:space="preserve">
+    <value>Connection mode</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="UsbWaiting" xml:space="preserve">
+    <value>No USB adapter detected. Enable USB tethering in your phone settings.</value>
+  </data>
+  <data name="RestartForNetwork" xml:space="preserve">
+    <value>Close the game and restart the workspace to apply the connection mode or access code.</value>
+  </data>
+</root>

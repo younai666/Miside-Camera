@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <style name="Theme.MisideCamera" parent="Theme.MisideCamera.Base">
+    <item name="android:windowSplashScreenBackground">#000000</item>
+    <item name="android:windowSplashScreenAnimatedIcon">@drawable/ic_camera</item>
+  </style>
+</resources>

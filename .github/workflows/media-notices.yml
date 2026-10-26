@@ -1,0 +1,31 @@
+name: Collect MediaMTX dependency notices
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  notices:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          mkdir -p staging
+          curl -fL --retry 2 https://github.com/bluenviron/mediamtx/archive/refs/tags/v1.21.2.tar.gz | tar xz -C staging
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: staging/mediamtx-1.21.2/go.mod
+          cache: false
+      - run: |
+          cd staging/mediamtx-1.21.2
+          go mod vendor
+          mkdir -p ../../notices
+          find vendor -type f \( -iname '*license*' -o -iname 'copying*' -o -iname '*notice*' -o -iname 'copyright*' \) -print0 | while IFS= read -r -d '' file; do
+            mkdir -p "../../notices/$(dirname "$file")"
+            cp "$file" "../../notices/$file"
+          done
+          cp go.mod go.sum ../../notices/
+          cp "$(go env GOROOT)/LICENSE" ../../notices/Go-LICENSE.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mediamtx-v1.21.2-dependency-notices
+          path: notices
+          if-no-files-found: error

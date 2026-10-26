@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityCamera = UnityEngine.Camera;
 
-namespace Miside.Camera.Hosts.NeuroMita;
+namespace Miside.Camera.Hosts.Unity;
 
 public static class CameraRuntime
 {
@@ -27,12 +27,14 @@ public static class CameraRuntime
 public sealed class CameraBehaviour : MonoBehaviour
 {
     public CameraBehaviour(IntPtr pointer) : base(pointer) { }
-    private NeuroMitaCameraAdapter? adapter;
+    private RenderedCameraAdapter? adapter;
     private PoseReceiver? receiver;
     private UnityCamera.CameraCallback? builtin;
     private UnityCamera.CameraCallback? builtinEnd;
+#if !MISIDE_HOST
     private Il2CppSystem.Action<ScriptableRenderContext, UnityCamera>? srp;
     private Il2CppSystem.Action<ScriptableRenderContext, UnityCamera>? srpEnd;
+#endif
     private bool background;
     private Action<string>? log;
     private LocalControlServer? desktop;
@@ -45,7 +47,7 @@ public sealed class CameraBehaviour : MonoBehaviour
         log = message => owner.Log.LogInfo(message);
         background = Application.runInBackground;
         Application.runInBackground = true;
-        adapter = new NeuroMitaCameraAdapter(log);
+        adapter = new RenderedCameraAdapter(log);
         receiver = new PoseReceiver(owner.Config.Bind("Control", "Port", 39570, "Pose control port").Value, () => adapter.Status, log,
             owner.Config.Bind("Control", "ListenAddress", "127.0.0.1", "Loopback by default; LAN requires AccessToken").Value,
             owner.Config.Bind("Control", "AccessToken", "", "Access code configured by Desktop for LAN").Value);
@@ -59,10 +61,12 @@ public sealed class CameraBehaviour : MonoBehaviour
         UnityCamera.onPreCull = Il2CppSystem.Delegate.Combine(UnityCamera.onPreCull, builtin)?.Cast<UnityCamera.CameraCallback>();
         builtinEnd = (UnityCamera.CameraCallback)(Action<UnityCamera>)(camera => adapter?.AfterRender(camera));
         UnityCamera.onPostRender = Il2CppSystem.Delegate.Combine(UnityCamera.onPostRender, builtinEnd)?.Cast<UnityCamera.CameraCallback>();
+#if !MISIDE_HOST
         srp = (Il2CppSystem.Action<ScriptableRenderContext, UnityCamera>)(Action<ScriptableRenderContext, UnityCamera>)((_, camera) => adapter?.BeforeRender(camera));
         RenderPipelineManager.add_beginCameraRendering(srp);
         srpEnd = (Il2CppSystem.Action<ScriptableRenderContext, UnityCamera>)(Action<ScriptableRenderContext, UnityCamera>)((_, camera) => adapter?.AfterRender(camera));
         RenderPipelineManager.add_endCameraRendering(srpEnd);
+#endif
         log("Miside Camera runtime ready; Manual/ARCore share the same adapter");
     }
 
@@ -108,10 +112,13 @@ public sealed class CameraBehaviour : MonoBehaviour
         receiver.Dispose(); receiver = null;
         if (builtin != null) UnityCamera.onPreCull = Il2CppSystem.Delegate.Remove(UnityCamera.onPreCull, builtin)?.Cast<UnityCamera.CameraCallback>();
         if (builtinEnd != null) UnityCamera.onPostRender = Il2CppSystem.Delegate.Remove(UnityCamera.onPostRender, builtinEnd)?.Cast<UnityCamera.CameraCallback>();
+#if !MISIDE_HOST
         if (srp != null) RenderPipelineManager.remove_beginCameraRendering(srp);
         if (srpEnd != null) RenderPipelineManager.remove_endCameraRendering(srpEnd);
+#endif
         adapter?.Dispose(); adapter = null;
         Application.runInBackground = background;
         log?.Invoke("Miside Camera runtime stopped and restored");
     }
 }
+

@@ -71,8 +71,17 @@ try {
     File.WriteAllText(Path.Combine(miside, "MiSideFull.exe"), "disposable detection fixture, never executable");
     File.WriteAllText(Path.Combine(host, "NeuroMita.exe"), "disposable detection fixture, never executable");
     File.WriteAllText(Path.Combine(host, "BepInEx", "interop", "Assembly-CSharp.dll"), "fixture");
-    Require(HostLocator.Find(new[] { installs }) == Path.Combine(host, "NeuroMita.exe"), "Prefer the supported prepared host over standalone MiSide");
-    Require(HostLocator.Find(new[] { miside }) == Path.Combine(miside, "MiSideFull.exe"), "Detect standalone MiSide without claiming adapter support");
+    Require(HostLocator.Find(new[] { installs }) == Path.Combine(host, "NeuroMita.exe"), "Prefer a prepared host over an unprepared install");
+    Require(HostLocator.Find(new[] { miside }) == Path.Combine(miside, "MiSideFull.exe"), "Detect the supported standalone MiSide host");
+    Require(HostLocator.IsSupported(Path.Combine(miside, "MiSideFull.exe")), "MiSideFull must support the existing workspace lifecycle");
+    Require(!HostLocator.IsSupported(Path.Combine(miside, "MiSide.exe")), "Do not claim unverified executable variants");
+    Directory.CreateDirectory(Path.Combine(miside, "BepInEx", "interop"));
+    File.WriteAllText(Path.Combine(miside, "BepInEx", "interop", "Assembly-CSharp.dll"), "fixture");
+    Require(HostLocator.Find(new[] { miside, host }) == Path.Combine(miside, "MiSideFull.exe"), "A prepared MiSide host must be selectable without a NeuroMita override");
+    Require(HostLocator.AdapterHost(Path.Combine(miside, "MiSideFull.exe")) == "miside"
+        && HostLocator.AdapterFiles(Path.Combine(miside, "MiSideFull.exe")).Contains("Miside.Camera.MiSide.dll"), "MiSide must receive its own Unity bindings");
+    Require(HostLocator.AdapterHost(Path.Combine(host, "NeuroMita.exe")) == "neuromita"
+        && !HostLocator.AdapterFiles(Path.Combine(host, "NeuroMita.exe")).Contains("Miside.Camera.MiSide.dll"), "NeuroMita deployment must retain its own adapter");
     Require(HostLocator.Find(new[] { Path.Combine(installs, "absent") }) is null, "Missing installs must permit manual selection");
     string file = Path.Combine(installs, "settings.json");
     var migrated = JsonSerializer.Deserialize<DesktopSettings>("{\"FfmpegPath\":\"Z:/old-dev/ffmpeg.exe\",\"MediaMtxPath\":\"Z:/old-dev/mediamtx.exe\"}")!;

@@ -1,6 +1,6 @@
 # Miside-Camera
 
-- Product names: Miside-Camera, Miside Camera Desktop, Miside Camera Android. Keep third-party copyrights and real host API names accurate; do not imply standalone MiSide support.
+- Product names: Miside-Camera, Miside Camera Desktop, Miside Camera Android. Keep third-party copyrights and real host API names accurate. Supported hosts are MiSideFull (Unity 2021.3.35f1) and NeuroMita Unity IL2CPP v2026.10.22; do not imply compatibility with untested builds.
 - Preserve the validated Pose/Camera/video contracts. Manual remains a fallback. Do not add AI, follow, photo capture or another host adapter without a request.
 - Recording output is the centered 9:16 Viewfinder game crop, exported as a portrait MP4 with no Android UI. Never publish the temporary full input stream to the gallery.
 - UI colors: black #000000, white #FFFFFF, pink #FFB7C5; alpha is allowed, gradients are not. Keep debug numbers in Developer. The record control has equal size to the other toolbar controls, fixed brightness and no press/breathing animation.

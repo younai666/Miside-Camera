@@ -24,7 +24,7 @@ JAR SHA-256：`81a82aaea5abcc8ff68b3dfcb58b3c3c429378efd98e7433460610fecd7ae45f`
 
 PC transitive versions are locked in `pc/Miside.Camera.Plugin/packages.lock.json`. The Release APK contains its Android runtime dependencies; the Windows ZIP contains the self-contained .NET/WPF runtime and original adapter DLLs. The build copies notices from the exact .NET runtime packs. Game interop, the game/loader and NVIDIA drivers are excluded; media tools and their notices/sources are packaged separately under tools/. `PrivateAssets` alone does not determine redistribution obligations. Any future bundle needs a fresh inventory for the actual files distributed.
 
-第二阶段 NeuroMita Adapter 通过 `HostDirectory` 引用本地宿主生成的 Unity/游戏 interop，只调用宿主 API；这些引用为 `Private=false`，不入库、不复制到发行包。实验副本中的 loader、生成绑定、私有验证探针、分析工具及含内部游戏内容的验收截图均在正式仓库外。本项目未复制 NeuroMita、NeuroMita-VR 或 INK 的业务实现和资产。
+NeuroMita 与 MiSide Adapter 分别通过本地宿主生成的 Unity/游戏 interop 编译，只调用相机、加载状态和 Unity API；这些引用为 `Private=false`，不入库、不复制到发行包。实验副本中的 loader、生成绑定、私有验证探针、分析工具及含内部游戏内容的验收截图均在正式仓库外。本项目未复制 NeuroMita、NeuroMita-VR 或 INK 的业务实现和资产。
 
 Android 对 Media3 1.8.0 的 `RtpPacketReorderingQueue.calculateSequenceNumberShift` 施加一处构建期修正：序号空间由 65535 改为 65536，避免回绕时丢弃有效包。不复制或替换其余播放器实现；上游 AAR 保持原样，AGP instrumentation 只修改 APK 内的该常量。构建器要求恰好命中一次，否则失败并要求复核版本。原版权 `Copyright 2021 The Android Open Source Project`、[Media3 LICENSE](licenses/media3-LICENSE.txt) 与[修改说明](licenses/media3-NOTICE.txt)保留，并打入 APK 的 `assets/licenses/`。此修改不由上游背书。
 
@@ -32,7 +32,7 @@ Android 对 Media3 1.8.0 的 `RtpPacketReorderingQueue.calculateSequenceNumberSh
 
 Desktop 与 Android 图标由项目维护者提供的双图 PNG 沿中线裁开生成，仅做等比尺寸适配并保留透明通道，未从 INK 或游戏中提取。原图权利归对应权利人；源码 MIT 许可不自动授予品牌图稿的独立使用权。源图拆分、平台尺寸与再生成步骤见 [品牌图标](assets/branding/README.md)。
 
-## Bundled media tools (v0.2.1)
+## Bundled media tools
 
 The Windows ZIP now includes two independent processes under `tools/`; their licenses do not become MIT merely because the application uses MIT.
 

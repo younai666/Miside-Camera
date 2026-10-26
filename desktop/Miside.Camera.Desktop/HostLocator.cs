@@ -6,24 +6,28 @@ namespace Miside.Camera.Desktop;
 
 internal static class HostLocator
 {
-    internal static bool IsSupported(string path) => Path.GetFileName(path).Equals("NeuroMita.exe", StringComparison.OrdinalIgnoreCase);
-    private static bool IsGame(string path) => IsSupported(path) || Path.GetFileName(path).Equals("MiSide.exe", StringComparison.OrdinalIgnoreCase)
+    internal static bool IsSupported(string path) => Path.GetFileName(path).Equals("NeuroMita.exe", StringComparison.OrdinalIgnoreCase)
         || Path.GetFileName(path).Equals("MiSideFull.exe", StringComparison.OrdinalIgnoreCase);
+    internal static string AdapterHost(string path) => Path.GetFileName(path).Equals("MiSideFull.exe", StringComparison.OrdinalIgnoreCase) ? "miside"
+        : Path.GetFileName(path).Equals("NeuroMita.exe", StringComparison.OrdinalIgnoreCase) ? "neuromita" : throw new NotSupportedException(path);
+    internal static string[] AdapterFiles(string path) => new[] { "Miside.Camera.Plugin.dll", "Miside.Camera.Core.dll",
+        AdapterHost(path) == "miside" ? "Miside.Camera.MiSide.dll" : "Miside.Camera.NeuroMita.dll", "Miside.Camera.Streaming.dll" };
+    private static bool IsGame(string path) => IsSupported(path) || Path.GetFileName(path).Equals("MiSide.exe", StringComparison.OrdinalIgnoreCase);
 
     public static string? Find() => Find(SearchRoots());
 
     internal static string? Find(IEnumerable<string> roots)
     {
-        string? neuroMita = null, miside = null;
+        string? supported = null, unsupported = null;
         foreach (string root in roots.Distinct(StringComparer.OrdinalIgnoreCase)) {
             foreach (string candidate in Candidates(root, 3)) {
                 if (IsSupported(candidate)) {
                     if (File.Exists(Path.Combine(Path.GetDirectoryName(candidate)!, "BepInEx", "interop", "Assembly-CSharp.dll"))) return candidate;
-                    neuroMita ??= candidate;
-                } else miside ??= candidate;
+                    supported ??= candidate;
+                } else unsupported ??= candidate;
             }
         }
-        return neuroMita ?? miside;
+        return supported ?? unsupported;
     }
 
     private static IEnumerable<string> Candidates(string root, int depth, bool insideHost = false)

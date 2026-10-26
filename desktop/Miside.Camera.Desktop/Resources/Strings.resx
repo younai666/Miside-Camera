@@ -501,5 +501,5 @@
   <data name="RestartForNetwork" xml:space="preserve">
     <value>Close the game and restart the workspace after changing connection mode, code or bundled media location.</value>
   </data>
-  <data name="UnsupportedHost" xml:space="preserve"><value>This game has no compatible Camera Adapter in this release. Select NeuroMita.exe.</value></data>
+  <data name="UnsupportedHost" xml:space="preserve"><value>Select MiSideFull.exe or NeuroMita.exe.</value></data>
 </root>

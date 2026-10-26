@@ -501,5 +501,5 @@
   <data name="RestartForNetwork" xml:space="preserve">
     <value>После изменения режима, кода или расположения медиапрограмм закройте игру и перезапустите рабочую область.</value>
   </data>
-  <data name="UnsupportedHost" xml:space="preserve"><value>Для этой игры в выпуске нет совместимого Camera Adapter. Выберите NeuroMita.exe.</value></data>
+  <data name="UnsupportedHost" xml:space="preserve"><value>Выберите MiSideFull.exe или NeuroMita.exe.</value></data>
 </root>

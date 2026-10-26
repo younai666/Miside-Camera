@@ -3,21 +3,25 @@ using BepInEx.Unity.IL2CPP;
 
 namespace Miside.Camera.Plugin;
 
-[BepInPlugin("dev.miside.camera", "Miside Camera", "0.2.1")]
+[BepInPlugin("dev.miside.camera", "Miside Camera", "0.3.0")]
 public sealed class Plugin : BasePlugin
 {
     private IDisposable? runtime;
     public override void Load()
     {
         string directory = Path.GetDirectoryName(typeof(Plugin).Assembly.Location)!;
-        string adapter = Path.Combine(directory, "Miside.Camera.NeuroMita.dll");
+        string executable = Path.GetFileNameWithoutExtension(Environment.ProcessPath!);
+        string host = executable.Equals("NeuroMita", StringComparison.OrdinalIgnoreCase) ? "NeuroMita"
+            : executable.Equals("MiSideFull", StringComparison.OrdinalIgnoreCase) ? "MiSide"
+            : throw new NotSupportedException($"Unsupported game executable: {executable}");
+        string adapter = Path.Combine(directory, $"Miside.Camera.{host}.dll");
         if (!File.Exists(adapter))
         {
             Log.LogError("Missing game adapter. Build it against the supported host's generated interop; do not distribute host DLLs.");
             return;
         }
         var assembly = System.Reflection.Assembly.LoadFrom(adapter);
-        var start = assembly.GetType("Miside.Camera.Hosts.NeuroMita.CameraRuntime", throwOnError: true)!
+        var start = assembly.GetType("Miside.Camera.Hosts.Unity.CameraRuntime", throwOnError: true)!
             .GetMethod("Start", new[] { typeof(BasePlugin) })!;
         runtime = (IDisposable)start.Invoke(null, new object[] { this })!;
     }

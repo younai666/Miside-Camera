@@ -7,7 +7,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <AssemblyName>Miside Camera Desktop</AssemblyName>
     <RootNamespace>Miside.Camera.Desktop</RootNamespace>
-    <Version>0.2.1</Version>
+    <Version>0.3.0</Version>
     <Product>Miside Camera Desktop</Product>
     <Description>Windows workspace manager for Miside Camera</Description>
     <Copyright>Copyright (c) 2026 Miside Camera contributors</Copyright>
@@ -26,10 +26,11 @@
              CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
   </ItemGroup>
   <ItemGroup>
-    <AdapterBinary Include="Miside.Camera.Plugin.dll;Miside.Camera.Core.dll;Miside.Camera.NeuroMita.dll;Miside.Camera.Streaming.dll" />
+    <AdapterBinary Include="neuromita\Miside.Camera.Plugin.dll;neuromita\Miside.Camera.Core.dll;neuromita\Miside.Camera.NeuroMita.dll;neuromita\Miside.Camera.Streaming.dll;miside\Miside.Camera.Plugin.dll;miside\Miside.Camera.Core.dll;miside\Miside.Camera.MiSide.dll;miside\Miside.Camera.Streaming.dll" />
     <Content Include="@(AdapterBinary->'$(AdapterDirectory)\%(Identity)')"
-             Link="adapters\%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest"
-             CopyToPublishDirectory="PreserveNewest" Condition="Exists('$(AdapterDirectory)')" />
+             CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" Condition="Exists('$(AdapterDirectory)')">
+      <Link>adapters\$([System.IO.Path]::GetFileName($([System.IO.Path]::GetDirectoryName('%(Identity)'))))\%(Filename)%(Extension)</Link>
+    </Content>
   </ItemGroup>
   <Target Name="ValidateAdapterBundle" BeforeTargets="Publish">
     <Error Condition="!Exists('$(AdapterDirectory)\%(AdapterBinary.Identity)')"

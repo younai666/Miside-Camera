@@ -1,5 +1,6 @@
 param(
     [Parameter(Mandatory = $true)][string]$HostDirectory,
+    [Parameter(Mandatory = $true)][string]$MiSideHostDirectory,
     [string]$OutputDirectory,
     [Parameter(Mandatory = $true)][string]$MediaDirectory,
     [string]$Dotnet = 'dotnet',
@@ -8,26 +9,37 @@ param(
 
 $ErrorActionPreference = 'Stop'
 $repoRoot = Split-Path -Parent $PSScriptRoot
-$hostRoot = (Resolve-Path -LiteralPath $HostDirectory).Path
+$hostRoots = @{ neuromita = (Resolve-Path -LiteralPath $HostDirectory).Path; miside = (Resolve-Path -LiteralPath $MiSideHostDirectory).Path }
 $mediaRoot = (Resolve-Path -LiteralPath $MediaDirectory).Path
 foreach ($required in @('ffmpeg/ffmpeg.exe', 'ffmpeg/licenses/COPYING.LGPLv2.1', 'ffmpeg/sources/ffmpeg-n9.0.2.tar.gz',
     'ffmpeg/sources/nv-codec-headers-n13.0.19.0.tar.gz', 'ffmpeg/sources/build_ffmpeg.sh', 'mediamtx/mediamtx.exe', 'mediamtx/LICENSE', 'mediamtx/licenses/Go-LICENSE.txt')) {
     if (-not (Test-Path -LiteralPath (Join-Path $mediaRoot $required))) { throw "Missing bundled media component: $required" }
 }
-if (-not (Test-Path -LiteralPath (Join-Path $hostRoot 'BepInEx/interop/Assembly-CSharp.dll'))) {
-    throw 'HostDirectory must contain the matching locally generated IL2CPP interop.'
+foreach ($hostRoot in $hostRoots.Values) {
+    if (-not (Test-Path -LiteralPath (Join-Path $hostRoot 'BepInEx/interop/Assembly-CSharp.dll'))) {
+        throw 'Each host must contain its matching locally generated IL2CPP interop.'
+    }
 }
 if (-not $OutputDirectory) { $OutputDirectory = Join-Path $repoRoot 'artifacts/desktop' }
 $adapterDirectory = Join-Path $repoRoot 'artifacts/adapters'
 New-Item -ItemType Directory -Path $adapterDirectory -Force | Out-Null
 
-foreach ($project in @('Miside.Camera.Plugin', 'Miside.Camera.NeuroMita', 'Miside.Camera.Streaming')) {
-    & $Dotnet build (Join-Path $repoRoot "pc/$project/$project.csproj") -c Release "-p:HostDirectory=$hostRoot" -v:q
-    if ($LASTEXITCODE -ne 0) { throw "Adapter build failed: $project" }
-}
-# Explicit allowlist: never package the host, interop or third-party loader DLLs.
-foreach ($project in @('Miside.Camera.Plugin', 'Miside.Camera.Core', 'Miside.Camera.NeuroMita', 'Miside.Camera.Streaming')) {
-    Copy-Item -LiteralPath (Join-Path $repoRoot "pc/$project/bin/Release/net6.0/$project.dll") -Destination $adapterDirectory
+& $Dotnet build (Join-Path $repoRoot 'pc/Miside.Camera.Plugin/Miside.Camera.Plugin.csproj') -c Release -v:q
+if ($LASTEXITCODE -ne 0) { throw 'Plugin build failed' }
+foreach ($kind in @('neuromita', 'miside')) {
+    $hostRoot = $hostRoots[$kind]
+    $hostProject = if ($kind -eq 'neuromita') { 'Miside.Camera.NeuroMita' } else { 'Miside.Camera.MiSide' }
+    $destination = Join-Path $adapterDirectory $kind
+    New-Item -ItemType Directory -Path $destination -Force | Out-Null
+    foreach ($project in @($hostProject, 'Miside.Camera.Streaming')) {
+        # Streaming uses different Unity interop even though its source and assembly name are shared.
+        & $Dotnet build (Join-Path $repoRoot "pc/$project/$project.csproj") -c Release "-p:HostDirectory=$hostRoot" "-p:HostKind=$kind" -t:Rebuild -v:q
+        if ($LASTEXITCODE -ne 0) { throw "Adapter build failed: $project" }
+    }
+    # Explicit allowlist: never package the host, interop or third-party loader DLLs.
+    foreach ($project in @('Miside.Camera.Plugin', 'Miside.Camera.Core', $hostProject, 'Miside.Camera.Streaming')) {
+        Copy-Item -LiteralPath (Join-Path $repoRoot "pc/$project/bin/Release/net6.0/$project.dll") -Destination $destination
+    }
 }
 & $DesktopDotnet publish (Join-Path $repoRoot 'desktop/Miside.Camera.Desktop/Miside.Camera.Desktop.csproj') `
     -c Release -r win-x64 --self-contained true "-p:AdapterDirectory=$adapterDirectory" -o $OutputDirectory -v:q

@@ -11,7 +11,7 @@ using Miside.Camera.Local;
 
 namespace Miside.Camera.Streaming;
 
-[BepInPlugin("dev.miside.camera.streaming", "Miside Camera Video", "0.2.1")]
+[BepInPlugin("dev.miside.camera.streaming", "Miside Camera Video", "0.3.0")]
 public sealed class StreamPlugin : BasePlugin
 {
     private GameStream? stream;
@@ -38,9 +38,14 @@ public sealed class GameStream : MonoBehaviour
     private readonly CancellationTokenSource stop = new();
     private Task? writer;
     private byte[]? latest;
+#if MISIDE_HOST
+    private Texture2D? screen;
+    private bool stopped;
+#else
     private RenderTexture? screen;
     private AsyncGPUReadbackRequest request;
     private bool pending, stopped;
+#endif
     private float nextCapture, nextRestart;
     private long frames, dropped;
     private long writeStarted;
@@ -89,7 +94,9 @@ public sealed class GameStream : MonoBehaviour
             else throw new FormatException("Unknown video operation");
         }, logger);
         if (enabled && (!File.Exists(path) || !Path.IsPathFullyQualified(path))) { desiredEnabled = false; lastError = "Bundled FFmpeg is unavailable. Restart the game through Desktop."; }
+#if !MISIDE_HOST
         if (!SystemInfo.supportsAsyncGPUReadback) throw new NotSupportedException("Asynchronous GPU capture is required.");
+#endif
         BepInEx.Unity.IL2CPP.Utils.MonoBehaviourExtensions.StartCoroutine(this, Capture());
     }
 
@@ -106,6 +113,7 @@ public sealed class GameStream : MonoBehaviour
                 if (encoder != null || screen != null) PauseCapture();
                 continue;
             }
+#if !MISIDE_HOST
             if (pending)
             {
                 if (!request.done) continue;
@@ -117,6 +125,7 @@ public sealed class GameStream : MonoBehaviour
                 if (old != null) { ArrayPool<byte>.Shared.Return(old); dropped++; }
                 frames++;
             }
+#endif
             if (Screen.width < 2 || Screen.height < 2) continue;
             if (screen == null || width != Screen.width || height != Screen.height)
             {
@@ -128,8 +137,12 @@ public sealed class GameStream : MonoBehaviour
                 if (old != null) ArrayPool<byte>.Shared.Return(old);
                 FreeTexture(screen);
                 width = Screen.width; height = Screen.height; frameBytes = checked(width * height * 4);
+#if MISIDE_HOST
+                screen = new Texture2D(width, height, TextureFormat.RGBA32, false, false);
+#else
                 screen = new RenderTexture(width, height, 0, RenderTextureFormat.ARGB32, RenderTextureReadWrite.sRGB);
                 screen.Create();
+#endif
             }
             if (encoder == null || encoder.HasExited)
             {
@@ -138,9 +151,18 @@ public sealed class GameStream : MonoBehaviour
             }
             if (Time.unscaledTime < nextCapture) continue;
             nextCapture = Time.unscaledTime + 1f / Fps;
+#if MISIDE_HOST
+            screen.ReadPixels(new Rect(0, 0, width, height), 0, 0, false);
+            var bytes = ArrayPool<byte>.Shared.Rent(frameBytes);
+            CopyScreen(bytes);
+            var oldFrame = Interlocked.Exchange(ref latest, bytes);
+            if (oldFrame != null) { ArrayPool<byte>.Shared.Return(oldFrame); dropped++; }
+            frames++;
+#else
             ScreenCapture.CaptureScreenshotIntoRenderTexture(screen);
             request = AsyncGPUReadback.Request(screen, 0, TextureFormat.RGBA32);
             pending = true;
+#endif
         }
     }
 
@@ -200,14 +222,30 @@ public sealed class GameStream : MonoBehaviour
         log?.Invoke($"Video capture → NVENC → local RTSP started ({width}x{height} native RGB, {Fps} fps target, BT.601 matrix / sRGB primaries and transfer / limited range, CQ17 / 20–30 Mbps)");
     }
 
+#if MISIDE_HOST
+    // Unity 2021's stripped IL2CPP metadata has no AsyncGPUReadbackRequest binding.
+    // Read the final backbuffer at end-of-frame; reuse the same bounded encoder queue.
+    [HideFromIl2Cpp]
+    private void CopyScreen(byte[] bytes)
+    {
+        IntPtr pointer = screen!.GetWritableImageData(0);
+        int stride = width * 4;
+        for (int row = 0; row < height; row++)
+            Marshal.Copy(pointer + row * stride, bytes, (height - 1 - row) * stride, stride);
+    }
+    private static void FreeTexture(Texture2D? texture) { if (texture != null) UnityEngine.Object.Destroy(texture); }
+#else
     private static void FreeTexture(RenderTexture? texture) { if (texture != null) { texture.Release(); UnityEngine.Object.Destroy(texture); } }
+#endif
     [HideFromIl2Cpp]
     private void PauseCapture()
     {
         if (encoder != null && !encoder.HasExited) encoder.Kill();
         writer?.Wait(1500);
         var frame = Interlocked.Exchange(ref latest, null); if (frame != null) ArrayPool<byte>.Shared.Return(frame);
+#if !MISIDE_HOST
         if (pending) { request.WaitForCompletion(); pending = false; }
+#endif
         FreeTexture(screen); screen = null;
         encoder?.Dispose(); encoder = null;
     }

@@ -1,12 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework><Version>0.3.0</Version>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="../Shared/LocalControlServer.cs" Link="LocalControlServer.cs" />
+    <Compile Include="../Shared/Unity/*.cs" Link="Unity/%(Filename)%(Extension)" />
     <ProjectReference Include="../Miside.Camera.Core/Miside.Camera.Core.csproj" />
     <Reference Include="$(HostDirectory)/BepInEx/interop/*.dll" Private="false" />
     <Reference Include="BepInEx.Unity.IL2CPP"><HintPath>$(HostDirectory)/BepInEx/core/BepInEx.Unity.IL2CPP.dll</HintPath><Private>false</Private></Reference>

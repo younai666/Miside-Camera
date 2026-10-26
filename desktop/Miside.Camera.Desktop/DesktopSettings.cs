@@ -60,7 +60,7 @@ public sealed class DesktopSettings : Observable
     }
     public void Validate()
     {
-        if (!File.Exists(GamePath) || !string.Equals(Path.GetFileName(GamePath), "NeuroMita.exe", StringComparison.OrdinalIgnoreCase))
+        if (!File.Exists(GamePath) || !HostLocator.IsSupported(GamePath))
             throw E(File.Exists(GamePath) ? "UnsupportedHost" : "SelectGame");
         string host = Path.GetDirectoryName(Path.GetFullPath(GamePath))!;
         if (!File.Exists(Path.Combine(host, "BepInEx", "interop", "Assembly-CSharp.dll")))

@@ -21,10 +21,10 @@ Start an existing Android AVD with a visible GUI; do not use headless mode. For 
 ## Release builds
 
 ```powershell
-.\tools\build_desktop.ps1 -HostDirectory C:\Games\SupportedGame -DesktopDotnet dotnet -MediaDirectory C:\Build\Media
+.\tools\build_desktop.ps1 -HostDirectory C:\Games\NeuroMita -MiSideHostDirectory C:\Games\MiSide -DesktopDotnet dotnet -MediaDirectory C:\Build\Media
 ```
 
-The directory must contain the matching `BepInEx/interop/Assembly-CSharp.dll`. The script stages only the four owned adapter DLLs, publishes the self-contained Desktop and copies the supplied media bundle. `MediaDirectory` must contain `ffmpeg/` and `mediamtx/` with their executables, licenses and FFmpeg corresponding source archives. Use the manual **Build bundled media runtime** workflow for FFmpeg and **Collect MediaMTX dependency notices** for the dependency license inventory. FFmpeg n9.0.2 is built with only the LGPL raw-RGBA/NVENC/RTSP components, retaining SIMD; no GPL/nonfree libraries are enabled. NVENC is part of FFmpeg and still requires an installed NVIDIA driver. Game/interop/loader DLLs are compile-only and must never be copied into a release.
+Both private host directories must contain their matching `BepInEx/interop/Assembly-CSharp.dll`. The script compiles against each Unity version and stages four owned DLLs per host in `adapters/neuromita` and `adapters/miside`, publishes the self-contained Desktop and copies the supplied media bundle. `MediaDirectory` must contain `ffmpeg/` and `mediamtx/` with their executables, licenses and FFmpeg corresponding source archives. Use the manual **Build bundled media runtime** workflow for FFmpeg and **Collect MediaMTX dependency notices** for the dependency license inventory. FFmpeg n9.0.2 is built with only the LGPL raw-RGBA/NVENC/RTSP components, retaining SIMD; no GPL/nonfree libraries are enabled. NVENC is part of FFmpeg and still requires an installed NVIDIA driver. Game/interop/loader DLLs are compile-only and must never be copied into a release.
 
 For a signed Android release, set `MISIDE_SIGNING_STORE_FILE`, `MISIDE_SIGNING_STORE_PASSWORD`, `MISIDE_SIGNING_KEY_ALIAS` and `MISIDE_SIGNING_KEY_PASSWORD` in the local build environment, then run `gradlew assembleRelease`. Without these variables the release build is unsigned, suitable for CI checks only. Keep the signing key and passwords outside Git and back them up privately for future updates.
 

@@ -1,16 +1,14 @@
 using Miside.Camera.Core;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using global::NeuroMita.Modding;
-using global::NeuroMita.Player;
 using UnityCamera = UnityEngine.Camera;
 using NQuaternion = System.Numerics.Quaternion;
 using NVector3 = System.Numerics.Vector3;
 
-namespace Miside.Camera.Hosts.NeuroMita;
+namespace Miside.Camera.Hosts.Unity;
 
 /// <summary>Applies the photography pose only while rendering; gameplay keeps its native camera and input.</summary>
-public sealed class NeuroMitaCameraAdapter : ICameraAdapter
+public sealed class RenderedCameraAdapter : ICameraAdapter
 {
     private readonly Action<string> log;
     private CameraStatus status = new("waiting-pose");
@@ -30,15 +28,14 @@ public sealed class NeuroMitaCameraAdapter : ICameraAdapter
     private PoseFrame? applied;
     private bool tracking;
 
-    public NeuroMitaCameraAdapter(Action<string> log) { this.log = log; }
+    public RenderedCameraAdapter(Action<string> log) { this.log = log; }
 
     public void Apply(PoseFrame pose, long client)
     {
         bool sourceChanged = source.Length != 0 && source != pose.Source;
         if (sourceChanged) Release("pose source changed");
-        // NeuroMita keeps GameCore and its Camera alive while the world and player spawn change.
-        // Release before that transition, so the next anchor comes from the destination spawn.
-        if (SceneService.IsTransitionInProgress)
+        // Release during loading so the next anchor belongs to the destination scene.
+        if (HostCameraProvider.Transitioning)
         {
             if (camera != null) Release("scene transition");
             Volatile.Write(ref status, new CameraStatus("waiting-scene"));
@@ -50,9 +47,7 @@ public sealed class NeuroMitaCameraAdapter : ICameraAdapter
         if (camera == null || !Usable(camera) || Time.unscaledTime >= discoveryAt)
         {
             discoveryAt = Time.unscaledTime + 0.25f;
-            var candidatePlayer = UnityEngine.Object.FindFirstObjectByType<PlayerActor>();
-            UnityCamera? candidate = candidatePlayer != null && Usable(candidatePlayer.MainCamera) ? candidatePlayer.MainCamera : UnityCamera.main;
-            if (!Usable(candidate)) candidate = UnityCamera.allCameras.FirstOrDefault(Usable);
+            UnityCamera? candidate = HostCameraProvider.Find();
             if (candidate != camera)
             {
                 Release("camera changed");
@@ -168,6 +163,7 @@ public sealed class NeuroMitaCameraAdapter : ICameraAdapter
         Volatile.Write(ref status, new CameraStatus("released", Detail: reason));
     }
 
-    private static bool Usable(UnityCamera? c) => c != null && c.isActiveAndEnabled && c.targetTexture == null && c.cullingMask != 0;
+    internal static bool Usable(UnityCamera? c) => c != null && c.isActiveAndEnabled && c.targetTexture == null && c.cullingMask != 0;
     public void Dispose() => Release("plugin stopped");
 }
+

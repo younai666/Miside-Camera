@@ -255,8 +255,8 @@ public sealed class WorkspaceManager : IAsyncDisposable
     private void DeployAdapters()
     {
         string root = Path.GetDirectoryName(Path.GetFullPath(settings.GamePath))!;
-        foreach (string name in new[] { "Miside.Camera.Plugin.dll", "Miside.Camera.Core.dll", "Miside.Camera.NeuroMita.dll", "Miside.Camera.Streaming.dll" }) {
-            string source = Path.Combine(AppContext.BaseDirectory, "adapters", name);
+        foreach (string name in HostLocator.AdapterFiles(settings.GamePath)) {
+            string source = Path.Combine(AppContext.BaseDirectory, "adapters", HostLocator.AdapterHost(settings.GamePath), name);
             if (!File.Exists(source)) throw E("MissingAdapter", name);
             string directory = Path.Combine(root, "BepInEx", "plugins", name.Contains("Streaming") ? "MisideVideo" : "MisideCamera");
             Directory.CreateDirectory(directory);

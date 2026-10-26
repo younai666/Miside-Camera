@@ -501,5 +501,5 @@
   <data name="RestartForNetwork" xml:space="preserve">
     <value>连接模式、连接码或随包媒体工具位置变更后，请关闭游戏并重启工作区。</value>
   </data>
-  <data name="UnsupportedHost" xml:space="preserve"><value>当前版本尚无此游戏的 Camera Adapter，请选择 NeuroMita.exe。</value></data>
+  <data name="UnsupportedHost" xml:space="preserve"><value>请选择 MiSideFull.exe 或 NeuroMita.exe。</value></data>
 </root>

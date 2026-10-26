@@ -1,5 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup><TargetFramework>net6.0</TargetFramework><Nullable>enable</Nullable><ImplicitUsings>enable</ImplicitUsings><AllowUnsafeBlocks>true</AllowUnsafeBlocks></PropertyGroup>
+  <PropertyGroup><TargetFramework>net6.0</TargetFramework><Version>0.3.0</Version><Nullable>enable</Nullable><ImplicitUsings>enable</ImplicitUsings><AllowUnsafeBlocks>true</AllowUnsafeBlocks></PropertyGroup>
+  <PropertyGroup Condition="'$(HostKind)' == 'miside'"><DefineConstants>$(DefineConstants);MISIDE_HOST</DefineConstants></PropertyGroup>
   <ItemGroup>
     <Compile Include="../Shared/LocalControlServer.cs" Link="LocalControlServer.cs" />
     <Reference Include="$(HostDirectory)/BepInEx/interop/*.dll" Private="false" />
